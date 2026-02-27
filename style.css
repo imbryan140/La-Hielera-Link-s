@@ -1,3 +1,4 @@
+/* FUENTE Y FONDO */
 body {
     margin: 0;
     padding: 0;
@@ -6,19 +7,24 @@ body {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                      url('./fondo.png');
-                
+    /* Ajustado a tu nombre real de archivo */
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('./fondo-flyer.png');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    background-color: #1a1a1a; 
+    background-color: #000;
+}
+
+.main-container {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    padding: 40px 0;
 }
 
 .logo {
-    width: 140px; 
+    width: 140px;
     height: auto;
     margin: 0 auto 10px auto;
     display: block;
@@ -29,22 +35,23 @@ body {
     font-size: 2.2rem;
     text-transform: uppercase;
     margin: 0;
-    letter-spacing: -1px;
 }
 
 .subtitle {
     font-weight: 100;
     letter-spacing: 4px;
     color: #e7900a;
-    margin: 0 0 30px 0;
+    margin-bottom: 30px;
     font-size: 0.8rem;
-    text-transform: uppercase;
 }
 
-.btn-link {
+/* BOTONES Y REGLA PARA EL BOTÓN WIFI */
+.btn-link, 
+button.btn-link { /* Forzamos que el botón use la misma fuente */
+    font-family: 'Poppins', sans-serif; 
     display: block;
     text-decoration: none;
-    color: #000000; 
+    color: #000000;
     padding: 16px;
     margin: 12px 0;
     font-weight: 700;
@@ -55,13 +62,13 @@ body {
     width: 100%;
     text-transform: uppercase;
     box-sizing: border-box;
-    transition: transform 0.2s;
     font-size: 0.9rem;
     position: relative;
     overflow: hidden;
     box-shadow: 0px 4px 15px rgba(231, 144, 10, 0.4);
 }
 
+/* EFECTO BRILLO */
 .btn-link::before {
     content: '';
     position: absolute;
@@ -87,6 +94,5 @@ body {
 footer {
     margin-top: 30px;
     font-size: 0.7rem;
-    letter-spacing: 1px;
     opacity: 0.8;
 }
