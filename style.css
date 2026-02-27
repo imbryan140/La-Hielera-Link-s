@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    /* Ajustado a tu nombre real de archivo */
+    /* CORRECCIÓN: Ruta exacta al archivo que tienes en tu carpeta */
     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('./fondo-flyer.png');
     background-position: center center;
     background-repeat: no-repeat;
@@ -45,10 +45,10 @@ body {
     font-size: 0.8rem;
 }
 
-/* BOTONES Y REGLA PARA EL BOTÓN WIFI */
+/* BOTONES GENERALES */
 .btn-link, 
-button.btn-link { /* Forzamos que el botón use la misma fuente */
-    font-family: 'Poppins', sans-serif; 
+button.btn-link {
+    font-family: 'Poppins', sans-serif !important; /* !important asegura que no cambie la fuente */
     display: block;
     text-decoration: none;
     color: #000000;
@@ -66,6 +66,25 @@ button.btn-link { /* Forzamos que el botón use la misma fuente */
     position: relative;
     overflow: hidden;
     box-shadow: 0px 4px 15px rgba(231, 144, 10, 0.4);
+    transition: transform 0.2s, background 0.2s;
+}
+
+/* DISEÑO DEL SUB-MENÚ (INSTAGRAM) */
+.sub-menu {
+    background: rgba(255, 255, 255, 0.05); /* Fondo sutil para agrupar */
+    border-radius: 25px;
+    padding: 5px 15px;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(231, 144, 10, 0.2);
+}
+
+.sub-item {
+    font-size: 0.8rem !important;
+    padding: 12px !important;
+    margin: 8px 0 !important;
+    /* Un naranja ligeramente diferente para diferenciar jerarquía */
+    background: linear-gradient(135deg, #f0a22a 0%, #db7701 100%) !important;
 }
 
 /* EFECTO BRILLO */
