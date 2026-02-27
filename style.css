@@ -1,6 +1,5 @@
 /* ESTRUCTURA Y FONDO DINÁMICO */
 body {
-    /* Reemplaza 'fondo-flyer.jpg' por el nombre exacto de tu imagen */
     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('fondo-flyer.png'); 
     background-position: center center;
     background-repeat: no-repeat;
@@ -23,7 +22,7 @@ body {
 
 /* TIPOGRAFÍA DE MARCA */
 .brand-name {
-    font-weight: 900; /* ExtraBlack */
+    font-weight: 900; 
     font-size: 2.5rem;
     letter-spacing: -1px;
     margin-bottom: 0;
@@ -32,36 +31,38 @@ body {
 }
 
 .subtitle {
-    font-weight: 100; /* Thin */
+    font-weight: 100; 
     letter-spacing: 5px;
-    color: #FF9900; /* El naranja de tu marca */
+    color: #e7900a; /* Ajustado al inicio de tu degradado */
     margin-top: 0;
     font-size: 0.8rem;
     text-transform: uppercase;
 }
 
-/* BOTONES CON BRILLO NARANJA */
+/* BOTONES REDONDEADOS CON DEGRADADO NARANJA */
 .btn-link {
     position: relative;
     overflow: hidden;
     display: block;
     text-decoration: none;
-    color: white;
-    border: 1px solid #FF9900;
-    padding: 16px;
+    color: #000000; /* Texto negro para contraste profesional sobre naranja */
+    border: none; 
+    padding: 18px;
     margin: 15px 0;
-    font-weight: 500; /* Medium */
-    border-radius: 4px;
+    font-weight: 700; /* Bold para resaltar el texto */
+    border-radius: 50px; /* Redondeado total */
     transition: 0.3s;
-    background: rgba(0,0,0,0.6); /* Más oscuro para resaltar sobre el fondo */
+    /* Tu degradado solicitado */
+    background: linear-gradient(135deg, #e7900a 0%, #db7701 100%);
     cursor: pointer;
     width: 100%;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     box-sizing: border-box;
+    box-shadow: 0px 4px 15px rgba(231, 144, 10, 0.3);
 }
 
-/* EFECTO DE BRILLO REFLEJO */
+/* EFECTO DE BRILLO (REFLEJO CLARO SOBRE NARANJA) */
 .btn-link::before {
     content: '';
     position: absolute;
@@ -72,7 +73,7 @@ body {
     background: linear-gradient(
         to right, 
         transparent, 
-        rgba(255, 153, 0, 0.4), 
+        rgba(255, 255, 255, 0.3), /* Brillo blanco sutil */
         transparent
     );
     transform: skewX(-25deg);
@@ -92,14 +93,13 @@ body {
 .btn-link:nth-child(3)::before { animation-delay: 3s; }
 .btn-link:nth-child(4)::before { animation-delay: 4.5s; }
 
-/* INTERACCIÓN */
+/* INTERACCIÓN AL TOCAR */
 .btn-link:active {
-    background: #FF9900;
-    color: black;
-    transform: scale(0.97);
+    background: linear-gradient(135deg, #db7701 0%, #e7900a 100%);
+    transform: scale(0.96);
 }
 
-/* PIE DE PÁGINA / UBICACIÓN */
+/* PIE DE PÁGINA */
 footer {
     margin-top: 30px;
     font-weight: 100;
@@ -107,5 +107,4 @@ footer {
     letter-spacing: 1px;
     line-height: 1.4;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-
 }
