@@ -1,7 +1,7 @@
 /* FONDO DINÁMICO */
 body {
     /* Usamos el nombre simplificado 'fondo.png' */
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('fondo.png'); 
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('fondo-vertical.png'); 
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -107,3 +107,4 @@ footer {
     letter-spacing: 1px;
     opacity: 0.9;
 }
+
