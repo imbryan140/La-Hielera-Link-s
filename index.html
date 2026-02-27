@@ -16,9 +16,20 @@
         </header>
 
         <section class="links">
-            <a href="TU_LINK_IG" class="btn-link">INSTAGRAM</a>
+            <div class="instagram-container">
+                <button onclick="toggleInstagram()" class="btn-link" id="btn-ig-main">
+                    INSTAGRAM ▼
+                </button>
+                <div id="sub-links-ig" class="sub-menu" style="display: none;">
+                    <a href="LINK_CUENTA_1" class="btn-link sub-item">COFFEE</a>
+                    <a href="LINK_CUENTA_2" class="btn-link sub-item">RUMBERA</a>
+                    <a href="LINK_CUENTA_3" class="btn-link sub-item">BODEGÓN</a>
+                </div>
+            </div>
+
             <a href="TU_LINK_WSP" class="btn-link">WHATSAPP</a>
             <a href="TU_LINK_MAPS" class="btn-link">UBICACIÓN</a>
+            
             <button onclick="copyWifi()" class="btn-link btn-wifi">CONECTAR WIFI</button>
         </section>
 
