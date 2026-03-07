@@ -42,11 +42,28 @@
         }
         .item:active { background: rgba(255,255,255,0.08); }
         .item-header { display: flex; justify-content: space-between; font-weight: 700; align-items: flex-start; gap: 10px; }
-        .item-name { text-transform: uppercase; font-size: 0.95rem; }
+        .item-name { text-transform: uppercase; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
         .item-price { color: #e7900a; font-weight: 900; font-size: 1.1rem; white-space: nowrap; }
         .item-desc { font-size: 0.75rem; opacity: 0.7; margin-top: 6px; color: #ccc; line-height: 1.4; text-transform: uppercase; }
         .back-nav { position: sticky; top: 0; background: rgba(0,0,0,0.9); padding: 15px; z-index: 100; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(231,144,10,0.3); text-align: center; }
         .back-nav a { color: #e7900a; text-decoration: none; font-weight: 900; font-size: 1rem; letter-spacing: 1px;}
+        
+        /* Estilos para el resaltado de bajada de precios */
+        .badge-oferta {
+            background-color: #d32f2f;
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            font-weight: 900;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 5px rgba(211, 47, 47, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
     </style>
 </head>
 <body>
@@ -61,7 +78,7 @@
             <h1 class="category-subtitle" style="font-size: 0.8rem;">PRECIOS SUJETOS A CAMBIO SIN PREVIO AVISO</h1>
         </header>
 
-        <h2 class="category-title">Desayunos</h2>
+        <h2 class="category-title">🍳 Desayunos</h2>
         
         <div class="item">
             <div class="item-header"><span class="item-name">Omelette</span><span class="item-price">$4</span></div>
@@ -80,22 +97,22 @@
             <p class="item-desc">Pan, jamón, queso amarillo, lechuga, tomate y salsas.</p>
         </div>
 
-        <div class="sub-category">AREPAS</div>
+        <div class="sub-category">🫓 AREPAS</div>
         <div class="item"><div class="item-header"><span class="item-name">Queso Blanco / Amarillo / Mozarella / Jamón</span><span class="item-price">$2 c/u</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Mechada</span><span class="item-price">$3,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Pollo Guisado / Molida</span><span class="item-price">$3 c/u</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Huevo (Revoltillo-Frito) / Aguacate</span><span class="item-price">$1,50 c/u</span></div></div>
 
-        <div class="sub-category">EMPANADAS</div>
+        <div class="sub-category">🥟 EMPANADAS</div>
         <div class="item"><div class="item-header"><span class="item-name">Mechada / Jamón y Queso / Molida / Queso / Pollo</span><span class="item-price">$1,25 c/u</span></div></div>
 
-        <div class="sub-category">BEBIDAS</div>
+        <div class="sub-category">🍹 BEBIDAS</div>
         <div class="item"><div class="item-header"><span class="item-name">Jugo de Parchita / Limón / Limón c/ Hierba Buena / Piña</span><span class="item-price">$2 c/u</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Jugo de Lechoza</span><span class="item-price">$1,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Jugo de Melón</span><span class="item-price">$1</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Jugo de Fresa</span><span class="item-price">$2,50</span></div></div>
 
-        <div class="sub-category">CAFÉ</div>
+        <div class="sub-category">☕ CAFÉ</div>
         <div class="item"><div class="item-header"><span class="item-name">Marrón Pequeño / Café con Leche P. / Americano Pequeño</span><span class="item-price">$1,20</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Marrón Grande</span><span class="item-price">$1,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Café con Leche G. / Capuchino / Macchiato</span><span class="item-price">$1,70</span></div></div>
@@ -107,19 +124,19 @@
         <div class="item"><div class="item-header"><span class="item-name">Americano Grande</span><span class="item-price">$2,20</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Latte Vainilla / Latte Coco</span><span class="item-price">$2,50</span></div></div>
 
-        <h2 class="category-title">Almuerzos</h2>
+        <h2 class="category-title">🍽️ Almuerzos</h2>
         
-        <div class="sub-category">PASTAS</div>
+        <div class="sub-category">🍝 PASTAS</div>
         <div class="item">
-            <div class="item-header"><span class="item-name">Pasta Napole</span><span class="item-price">$5</span></div>
+            <div class="item-header"><span class="item-name">Pasta Napole <span class="badge-oferta">¡PRECIO ESPECIAL!</span></span><span class="item-price">$5</span></div>
             <p class="item-desc">Pasta, pecorino, salsa napole.</p>
         </div>
         <div class="item">
-            <div class="item-header"><span class="item-name">Pasta Boloñesa</span><span class="item-price">$5</span></div>
+            <div class="item-header"><span class="item-name">Pasta Boloñesa <span class="badge-oferta">¡PRECIO ESPECIAL!</span></span><span class="item-price">$5</span></div>
             <p class="item-desc">Pasta, pecorino, salsa napole, carne molida.</p>
         </div>
         <div class="item">
-            <div class="item-header"><span class="item-name">Pasta Al Pesto</span><span class="item-price">$5</span></div>
+            <div class="item-header"><span class="item-name">Pasta Al Pesto <span class="badge-oferta">¡PRECIO ESPECIAL!</span></span><span class="item-price">$5</span></div>
             <p class="item-desc">Pasta, pecorino, salsa pesto.</p>
         </div>
         <div class="item">
@@ -147,17 +164,17 @@
             <p class="item-desc">Pasta, molisano, lomito, tocineta, parmesano, pecorino y salsa de champiñones.</p>
         </div>
         <div class="item">
-            <div class="item-header"><span class="item-name">Pasticho</span><span class="item-price">$7,50</span></div>
+            <div class="item-header"><span class="item-name">Pasticho <span class="badge-oferta">¡BAJÓ DE PRECIO!</span></span><span class="item-price">$5</span></div>
             <p class="item-desc">Pasticho, mozzarella, pan ajillo.</p>
         </div>
 
-        <div class="sub-category">AVES</div>
+        <div class="sub-category">🍗 AVES</div>
         <div class="item">
-            <div class="item-header"><span class="item-name">Pollo al Horno</span><span class="item-price">$6,50</span></div>
+            <div class="item-header"><span class="item-name">Pollo al Horno <span class="badge-oferta">¡BAJÓ DE PRECIO!</span></span><span class="item-price">$5</span></div>
             <p class="item-desc">Pollo al horno.</p>
         </div>
         <div class="item">
-            <div class="item-header"><span class="item-name">Pollo Frito</span><span class="item-price">$6,50</span></div>
+            <div class="item-header"><span class="item-name">Pollo Frito <span class="badge-oferta">¡BAJÓ DE PRECIO!</span></span><span class="item-price">$5</span></div>
             <p class="item-desc">Muslos de pollo.</p>
         </div>
         <div class="item">
@@ -189,9 +206,9 @@
             <p class="item-desc">Lomito, milanesa de pollo, chorizo, salsa de ajo, ensalada mixta y papas fritas.</p>
         </div>
 
-        <div class="sub-category">CARNES</div>
-        <div class="item"><div class="item-header"><span class="item-name">Carne Guisada</span><span class="item-price">$6,99</span></div></div>
-        <div class="item"><div class="item-header"><span class="item-name">Costilla Guisada</span><span class="item-price">$6,99</span></div></div>
+        <div class="sub-category">🥩 CARNES</div>
+        <div class="item"><div class="item-header"><span class="item-name">Carne Guisada <span class="badge-oferta">¡BAJÓ DE PRECIO!</span></span><span class="item-price">$5,99</span></div></div>
+        <div class="item"><div class="item-header"><span class="item-name">Costilla Guisada <span class="badge-oferta">¡BAJÓ DE PRECIO!</span></span><span class="item-price">$5,99</span></div></div>
         <div class="item">
             <div class="item-header"><span class="item-name">Bisteck</span><span class="item-price">$8</span></div>
             <p class="item-desc">Bisteck y pimienta negra.</p>
@@ -229,7 +246,7 @@
             <p class="item-desc">Camarones, anís cartujo, ajo, perejil y margarina.</p>
         </div>
 
-        <div class="sub-category">CERDO</div>
+        <div class="sub-category">🥓 CERDO</div>
         <div class="item">
             <div class="item-header"><span class="item-name">Chuleta de Cochino</span><span class="item-price">$8</span></div>
             <p class="item-desc">Chuleta de cochino, ajo, limón y salsa de ajo.</p>
@@ -243,7 +260,7 @@
             <p class="item-desc">Chuleta ahumada y salsa de ajo.</p>
         </div>
 
-        <div class="sub-category">ENSALADAS</div>
+        <div class="sub-category">🥗 ENSALADAS</div>
         <div class="item">
             <div class="item-header"><span class="item-name">Ensalada Cesar con Pollo</span><span class="item-price">$8</span></div>
             <p class="item-desc">Lechuga, milanesa de pollo, crottones, aderezo cesar, pecorino y tocineta.</p>
@@ -257,13 +274,13 @@
             <p class="item-desc">Lechuga, milanesa de pollo, tempura, panco, pecorino, tocineta, aderezo cesar y crottones.</p>
         </div>
 
-        <div class="sub-category">CONTORNOS</div>
+        <div class="sub-category">🍟 CONTORNOS</div>
         <div class="item"><div class="item-header"><span class="item-name">Arroz Primavera / Ensalada Rallada / Ensalada Mixta</span><span class="item-price">$1,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Vegetales Salteados / Papas Fritas / Pure de Papa / Papas al Ajillo</span><span class="item-price">$2</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Tajada / Yuca Frita / Yuca Sancochada / Arroz</span><span class="item-price">$1</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Plátano Dulce</span><span class="item-price">$2,20</span></div></div>
 
-        <h2 class="category-title">Rapid Food</h2>
+        <h2 class="category-title">🍔 Rapid Food</h2>
         
         <div class="item">
             <div class="item-header"><span class="item-name">Alitas</span><span class="item-price">$6,50</span></div>
@@ -299,33 +316,33 @@
             <p class="item-desc">Papas fritas, milanesa de pollo, tempura, panko amarillo y salsa de tomate.</p>
         </div>
 
-        <div class="sub-category">PIZZAS</div>
+        <div class="sub-category">🍕 PIZZAS</div>
         <div class="item"><div class="item-header"><span class="item-name">Margarita</span><span class="item-price">$5,50</span></div><p class="item-desc">Salsa napole, queso mozarella y oregano molido.</p></div>
         <div class="item"><div class="item-header"><span class="item-name">4 Quesos</span><span class="item-price">$15,99</span></div><p class="item-desc">Salsa napole, queso mozarella, amarillo, parmesano, azul y oregano molido.</p></div>
         <div class="item"><div class="item-header"><span class="item-name">Charcutera</span><span class="item-price">$9,50</span></div><p class="item-desc">Salsa napole, queso mozarella, jamón, tocineta ahumada, salchichon y oregano molido.</p></div>
         <div class="item"><div class="item-header"><span class="item-name">Primavera</span><span class="item-price">$9,50</span></div><p class="item-desc">Salsa napole, queso mozarella, jamón, tocineta ahumada, maíz dulce, pimentón y oregano molido.</p></div>
         <div class="item"><div class="item-header"><span class="item-name">La Hielera</span><span class="item-price">$12</span></div><p class="item-desc">Salsa napole, queso mozarella, salchichon, jamón serrano, queso bococito y oregano molido.</p></div>
 
-        <div class="sub-category">SÁNDWICHES</div>
+        <div class="sub-category">🥪 SÁNDWICHES</div>
         <div class="item"><div class="item-header"><span class="item-name">Ternerito de Carne / Pollo / Mixto</span><span class="item-price">$5,50 c/u</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Club House de Pollo / Carne / Mixto</span><span class="item-price">$12 c/u</span></div></div>
 
-        <div class="sub-category">HAMBURGUESAS</div>
+        <div class="sub-category">🍔 HAMBURGUESAS</div>
         <div class="item"><div class="item-header"><span class="item-name">Burger Basic Carne</span><span class="item-price">$4</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Burger Pollo Crunch</span><span class="item-price">$6</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Burger La Hielera</span><span class="item-price">$6</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Burger Duo La Hielera</span><span class="item-price">$6,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Burger Hielera Criolla</span><span class="item-price">$6,50</span></div></div>
 
-        <div class="sub-category">RACIONES</div>
+        <div class="sub-category">🍟 RACIONES</div>
         <div class="item"><div class="item-header"><span class="item-name">6 Tequeños</span><span class="item-price">$6</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Dedos de Mozarella 6und</span><span class="item-price">$6,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Nachos a la Hielera</span><span class="item-price">$12</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Mix La Hielera</span><span class="item-price">$15</span></div></div>
 
-        <h2 class="category-title">Servicios</h2>
+        <h2 class="category-title">🍾 Servicios</h2>
         
-        <div class="sub-category">RON</div>
+        <div class="sub-category">🥃 RON</div>
         <div class="item"><div class="item-header"><span class="item-name">Carupano 21 Años</span><span class="item-price">$70</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Carupano 18 Años</span><span class="item-price">$54</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Pampero Aniversario</span><span class="item-price">Consultar</span></div></div>
@@ -341,7 +358,7 @@
         <div class="item"><div class="item-header"><span class="item-name">Hacienda Sanuro</span><span class="item-price">$48</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Cacique Añejo</span><span class="item-price">$30</span></div></div>
 
-        <div class="sub-category">WHISKY</div>
+        <div class="sub-category">🥃 WHISKY</div>
         <div class="item"><div class="item-header"><span class="item-name">Black & White 8 Años</span><span class="item-price">$45</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Grand Old Par 12 Años</span><span class="item-price">Consultar</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Grand Old Par Silver</span><span class="item-price">$38</span></div></div>
@@ -349,13 +366,13 @@
         <div class="item"><div class="item-header"><span class="item-name">Buchanan's 18 Años</span><span class="item-price">$150</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Black Label</span><span class="item-price">Consultar</span></div></div>
 
-        <div class="sub-category">CÓCTELES</div>
+        <div class="sub-category">🍸 CÓCTELES</div>
         <div class="item"><div class="item-header"><span class="item-name">Orgasmo / Whiskey</span><span class="item-price">$7,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Margarita / Margarita Blue / Mojito de Limón / Mojito de Parchita / Mojito de Blue / Cuba Libre / Maraquita</span><span class="item-price">$3,50</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Daiquiri de Fresa / Daiquiri de Parchita / Shot de Tequila</span><span class="item-price">$4</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Piña Colada / Tinto Verano</span><span class="item-price">$5</span></div></div>
 
-        <div class="sub-category">VARIOS</div>
+        <div class="sub-category">🍾 VARIOS</div>
         <div class="item"><div class="item-header"><span class="item-name">Caroreña (Rosada - Tinta)</span><span class="item-price">$18</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Tequila El Jimador</span><span class="item-price">$45</span></div></div>
         <div class="item"><div class="item-header"><span class="item-name">Ginebra Original</span><span class="item-price">$30</span></div></div>
@@ -364,11 +381,4 @@
 
     </div>
 </body>
-
 </html>
-
-
-
-
-
-
