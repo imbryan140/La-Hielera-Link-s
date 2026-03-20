@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Hielera - CASITE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos adicionales para asegurar el centrado y realce del nuevo contenido */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 5px;
+        }
+
+        .promo-text {
+            font-weight: 400;
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .btn-cta {
+            background-color: #ffffff; /* Ajusta según el color de tu marca */
+            color: #000000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <img src="logo.png" alt="La Hielera" class="logo">
+            <h1 class="brand-name">LA HIELERA</h1>
+            <p class="subtitle">RESTAURANT - COFFEE & ICE CREAM</p>
+        </header>
+
+        <main class="hero-section">
+            <h2 class="main-title">CASITE</h2>
+            <p class="promo-text">
+                Síguenos en IG para que veas el video cuando lo subamos y te diviertas.
+            </p>
+            
+            <section class="links">
+                <a href="https://la-hielera-link-s.vercel.app/index.html" class="btn-link">ENTRA AQUÍ Y CONÓCENOS</a>
+                
+                <div class="instagram-container">
+                    <button onclick="toggleInstagram()" class="btn-link" id="btn-ig-main">
+                        INSTAGRAM ▼
+                    </button>
+                    <div id="sub-links-ig" class="sub-menu" style="display: none;">
+                        <a href="https://www.instagram.com/lahieleracoffee/" class="btn-link sub-item">COFFEE</a>
+                        <a href="https://www.instagram.com/lahielerarumbera/" class="btn-link sub-item">RUMBERA</a>
+                        <a href="https://www.instagram.com/lahielerabodegon/" class="btn-link sub-item">BODEGÓN</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>ZONA INDUSTRIAL, SAN PABLO – TURMERO, ARAGUA</p>
+            <p>By: Sentinel Systems™</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
