@@ -3,12 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Hielera - Restaurant - Coffee & Ice cream</title>
+    <title>Acceso Restringido - La Hielera</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos para el bloqueo de pantalla */
+        #lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .lock-card {
+            background: #111;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #ff0000;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        .lock-card h2 { color: #ff0000; margin-bottom: 10px; font-weight: 900; }
+        .lock-card p { margin-bottom: 20px; font-size: 0.9em; color: #ccc; line-height: 1.4; }
+        .lock-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #222;
+            color: #fff;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .btn-unlock {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn-unlock:hover { background: #cc0000; }
+        
+        /* Ocultar el contenido principal inicialmente */
+        .main-container { display: none; }
+    </style>
 </head>
 <body>
-    <div class="main-container">
+
+    <div id="lock-screen">
+        <div class="lock-card">
+            <img src="logo.png" alt="Logo" style="width: 80px; margin-bottom: 15px;">
+            <h2>ACCESO LIMITADO</h2>
+            <p>Este sitio ha sido suspendido temporalmente por <strong>FALTA DE PAGO</strong>. Por favor, ingrese sus credenciales administrativas para continuar.</p>
+            
+            <input type="text" id="user" placeholder="Usuario">
+            <input type="password" id="pass" placeholder="Contraseña">
+            <button class="btn-unlock" onclick="checkAccess()">INGRESAR</button>
+            
+            <p style="margin-top: 20px; font-size: 0.7em; color: #555;">Soporte técnico: Sentinel Systems™</p>
+        </div>
+    </div>
+
+    <div class="main-container" id="content">
         <header>
             <img src="logo.png" alt="La Hielera" class="logo">
             <h1 class="brand-name">LA HIELERA</h1>
@@ -39,12 +112,21 @@
             <p>By: Sentinel Systems™</p>
         </footer>
     </div>
+
+    <script>
+        function checkAccess() {
+            var user = document.getElementById("user").value;
+            var pass = document.getElementById("pass").value;
+
+            // Credenciales asignadas
+            if (user === "imbryan140sentynel" && pass === "940722") {
+                document.getElementById("lock-screen").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            } else {
+                alert("Credenciales incorrectas. El acceso sigue restringido por falta de pago.");
+            }
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
