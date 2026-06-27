@@ -3,85 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso Restringido - La Hielera</title>
+    <title>La Hielera - Turmero</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;900&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para el bloqueo de pantalla */
-        #lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            padding: 20px;
+        /* Animación para el botón de donaciones */
+        @keyframes pulso {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
-        .lock-card {
-            background: #111;
-            padding: 30px;
-            border-radius: 15px;
+        .btn-donate {
+            background: #fff;
+            color: #ff0000;
+            font-weight: 900;
             border: 2px solid #ff0000;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            animation: pulso 2s infinite;
         }
-        .lock-card h2 { color: #ff0000; margin-bottom: 10px; font-weight: 900; }
-        .lock-card p { margin-bottom: 20px; font-size: 0.9em; color: #ccc; line-height: 1.4; }
-        .lock-card input {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background: #222;
-            color: #fff;
-            outline: none;
-            box-sizing: border-box;
-        }
-        .btn-unlock {
-            background: #ff0000;
-            color: white;
-            border: none;
-            padding: 14px;
-            width: 100%;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .btn-unlock:hover { background: #cc0000; }
-        
-        /* Ocultar el contenido principal inicialmente */
-        .main-container { display: none; }
     </style>
 </head>
 <body>
 
-    <div id="lock-screen">
-        <div class="lock-card">
-            <img src="logo.png" alt="Logo" style="width: 80px; margin-bottom: 15px;">
-            <h2>ACCESO LIMITADO</h2>
-            <p>Este sitio ha sido suspendido temporalmente por <strong>FALTA DE PAGO</strong>. Por favor, ingrese sus credenciales administrativas para continuar.</p>
-            
-            <input type="text" id="user" placeholder="Usuario">
-            <input type="password" id="pass" placeholder="Contraseña">
-            <button class="btn-unlock" onclick="checkAccess()">INGRESAR</button>
-            
-            <p style="margin-top: 20px; font-size: 0.7em; color: #555;">Soporte técnico: Sentinel Systems™</p>
-        </div>
-    </div>
-
-    <div class="main-container" id="content">
+    <div class="main-container">
         <header>
             <img src="logo.png" alt="La Hielera" class="logo">
             <h1 class="brand-name">LA HIELERA</h1>
@@ -89,6 +32,8 @@
         </header>
 
         <section class="links">
+            <a href="donaciones.html" class="btn-link btn-donate">AYÚDANOS A AYUDAR</a>
+
             <div class="instagram-container">
                 <button onclick="toggleInstagram()" class="btn-link" id="btn-ig-main">
                     INSTAGRAM ▼
@@ -102,7 +47,7 @@
 
             <a href="https://api.whatsapp.com/send/?phone=584243010770" class="btn-link">RESERVACIONES</a>
             <a href="https://maps.app.goo.gl/35St4FDaA5xZcnmv5" class="btn-link">UBICACIÓN</a>
-            <a href="https://la-hielera-link-s.vercel.app/menu.html" class="btn-link">MENÚ DIGITAL</a>
+            <a href="menu.html" class="btn-link">MENÚ DIGITAL</a>
             
             <button onclick="copyWifi()" class="btn-link btn-wifi">CONECTAR WIFI</button>
         </section>
@@ -113,20 +58,6 @@
         </footer>
     </div>
 
-    <script>
-        function checkAccess() {
-            var user = document.getElementById("user").value;
-            var pass = document.getElementById("pass").value;
-
-            // Credenciales asignadas
-            if (user === "blugo" && pass === "30406527") {
-                document.getElementById("lock-screen").style.display = "none";
-                document.getElementById("content").style.display = "block";
-            } else {
-                alert("Credenciales incorrectas. El acceso sigue restringido por falta de pago.");
-            }
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
