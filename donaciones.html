@@ -8,28 +8,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;900&display=swap" rel="stylesheet">
     <style>
         .donacion-card {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             border: 2px solid #ff0000;
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
             margin: 20px auto;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
             color: white;
         }
+        .intro-text { font-size: 0.95em; margin-bottom: 20px; line-height: 1.5; color: #ddd; }
+        .success-text { font-weight: 900; color: #ff0000; margin-top: 25px; font-size: 1.1em; text-transform: uppercase; }
         .icon { width: 40px; margin-bottom: 10px; }
-        .data-box { background: #111; padding: 15px; border-radius: 10px; margin: 10px 0; }
-        .back-link { display: block; margin-top: 20px; color: #ff0000; text-decoration: none; font-weight: bold; }
+        .data-box { background: #111; padding: 15px; border-radius: 10px; margin: 10px 0; border: 1px solid #333; }
+        .back-link { display: block; margin-top: 25px; color: #fff; text-decoration: none; font-size: 0.9em; opacity: 0.7; }
     </style>
 </head>
 <body>
     <div class="main-container">
         <header>
             <img src="logo.png" alt="La Hielera" class="logo">
-            <h1>AYÚDANOS A AYUDAR</h1>
+            <h1 class="brand-name">AYÚDANOS A AYUDAR</h1>
         </header>
 
         <section class="donacion-card">
+            <p class="intro-text">
+                En <strong>La Hielera de Turmero</strong>, nuestra misión trasciende el servicio; hemos trabajado incansablemente para llevar agua, alimento y hielo a quienes más lo necesitan en nuestra comunidad. 
+                <br><br>
+                Cada aporte nos permite multiplicar este impacto. Si deseas sumarte a esta causa y ayudarnos a seguir ayudando, puedes colaborar a través de los siguientes canales:
+            </p>
+
             <div class="data-box">
                 <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" class="icon" alt="Banco">
                 <h3>PAGO MÓVIL</h3>
@@ -43,6 +51,8 @@
                 <h3>ZELLE</h3>
                 <p>zelle@example.com</p>
             </div>
+
+            <p class="success-text">¡GRACIAS A TU AYUDA HEMOS HECHO ESTO!</p>
 
             <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
         </section>
