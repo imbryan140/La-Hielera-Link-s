@@ -39,3 +39,22 @@ function toggleInstagram() {
         btnMain.innerText = "INSTAGRAM ▼"; // Cambiamos la flecha hacia abajo
     }
 }
+
+// NUEVO: LÓGICA AUTOMÁTICA DEL CARRUSEL DE BANNERS
+document.addEventListener("DOMContentLoaded", () => {
+    const slides = document.querySelectorAll(".slide");
+    let currentIndex = 0;
+    const intervalTime = 3000; // Cambio cada 3 segundos
+
+    function nextSlide() {
+        if (slides.length === 0) return;
+        
+        slides[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add("active");
+    }
+
+    if (slides.length > 0) {
+        setInterval(nextSlide, intervalTime);
+    }
+});
