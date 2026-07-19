@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Hielera - Turmero</title>
+    <title>La Hielera - Enlaces de Interés</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;900&display=swap" rel="stylesheet">
     <style>
-        /* Animación para el botón de donaciones */
-        @keyframes pulso {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-        }
-        .btn-donate {
-            background: #fff;
-            color: #ff0000;
-            font-weight: 900;
-            border: 2px solid #ff0000;
-            animation: pulso 2s infinite;
+        /* Se eliminaron los estilos de la pantalla de bloqueo */
+        
+        /* El contenedor principal ahora se muestra de forma predeterminada */
+        .main-container { 
+            display: block; 
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
+    <div class="main-container" id="content">
         <header>
             <img src="logo.png" alt="La Hielera" class="logo">
             <h1 class="brand-name">LA HIELERA</h1>
@@ -32,8 +25,6 @@
         </header>
 
         <section class="links">
-            <a href="donaciones.html" class="btn-link btn-donate">AYÚDANOS A AYUDAR</a>
-
             <div class="instagram-container">
                 <button onclick="toggleInstagram()" class="btn-link" id="btn-ig-main">
                     INSTAGRAM ▼
@@ -47,7 +38,7 @@
 
             <a href="https://api.whatsapp.com/send/?phone=584243010770" class="btn-link">RESERVACIONES</a>
             <a href="https://maps.app.goo.gl/35St4FDaA5xZcnmv5" class="btn-link">UBICACIÓN</a>
-            <a href="menu.html" class="btn-link">MENÚ DIGITAL</a>
+            <a href="https://la-hielera-link-s.vercel.app/menu.html" class="btn-link">MENÚ DIGITAL</a>
             
             <button onclick="copyWifi()" class="btn-link btn-wifi">CONECTAR WIFI</button>
         </section>
@@ -58,6 +49,7 @@
         </footer>
     </div>
 
+    <!-- Se removió la función checkAccess que controlaba el bloqueo -->
     <script src="script.js"></script>
 </body>
 </html>
