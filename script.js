@@ -3,7 +3,6 @@ function copyWifi() {
     const wifiPass = "LaHielera"; 
     
     navigator.clipboard.writeText(wifiPass).then(() => {
-        // Buscamos el botón específicamente por su clase corregida
         const btn = document.querySelector('.btn-wifi');
         
         if (btn) {
@@ -30,32 +29,22 @@ function toggleInstagram() {
     const subMenu = document.getElementById('sub-links-ig');
     const btnMain = document.getElementById('btn-ig-main');
 
-    // Verificamos si está oculto
     if (subMenu.style.display === 'none' || subMenu.style.display === '') {
         subMenu.style.display = 'block';
-        btnMain.innerText = "INSTAGRAM ▲"; // Cambiamos la flecha hacia arriba
+        btnMain.innerText = "INSTAGRAM ▲"; 
     } else {
         subMenu.style.display = 'none';
-        btnMain.innerText = "INSTAGRAM ▼"; // Cambiamos la flecha hacia abajo
+        btnMain.innerText = "INSTAGRAM ▼"; 
     }
 }
 
-    // FUNCIÓN PARA DESPLEGAR WHATSAPP
+// FUNCIÓN PARA DESPLEGAR WHATSAPP
 function toggleWhatsapp() {
     var subMenu = document.getElementById("sub-links-wa");
     var btn = document.getElementById("btn-wa-main");
     
     if (subMenu.style.display === "none" || subMenu.style.display === "") {
-        subMenu.style.display = "block"; // Cambia "block" a "flex" si tu CSS actual de .sub-menu así lo requiere
-        btn.innerHTML = "RESERVACIONES ▲";
-    } else {
-        subMenu.style.display = "none";
-        btn.innerHTML = "RESERVACIONES ▼";
-    }
-}
-    
-    if (subMenu.style.display === "none" || subMenu.style.display === "") {
-        subMenu.style.display = "block"; // Cambia "block" a "flex" si tu CSS actual de .sub-menu así lo requiere
+        subMenu.style.display = "block"; 
         btn.innerHTML = "RESERVACIONES ▲";
     } else {
         subMenu.style.display = "none";
@@ -63,11 +52,11 @@ function toggleWhatsapp() {
     }
 }
 
-// NUEVO: LÓGICA AUTOMÁTICA DEL CARRUSEL DE BANNERS
+// LÓGICA AUTOMÁTICA DEL CARRUSEL DE BANNERS
 document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".slide");
     let currentIndex = 0;
-    const intervalTime = 3000; // Cambio cada 3 segundos
+    const intervalTime = 3000; 
 
     function nextSlide() {
         if (slides.length === 0) return;
