@@ -30,6 +30,16 @@ function toggleInstagram() {
     const subMenu = document.getElementById('sub-links-ig');
     const btnMain = document.getElementById('btn-ig-main');
 
+    // Verificamos si está oculto
+    if (subMenu.style.display === 'none' || subMenu.style.display === '') {
+        subMenu.style.display = 'block';
+        btnMain.innerText = "INSTAGRAM ▲"; // Cambiamos la flecha hacia arriba
+    } else {
+        subMenu.style.display = 'none';
+        btnMain.innerText = "INSTAGRAM ▼"; // Cambiamos la flecha hacia abajo
+    }
+}
+
     // FUNCIÓN PARA DESPLEGAR WHATSAPP
 function toggleWhatsapp() {
     var subMenu = document.getElementById("sub-links-wa");
@@ -50,16 +60,6 @@ function toggleWhatsapp() {
     } else {
         subMenu.style.display = "none";
         btn.innerHTML = "RESERVACIONES ▼";
-    }
-}
-
-    // Verificamos si está oculto
-    if (subMenu.style.display === 'none' || subMenu.style.display === '') {
-        subMenu.style.display = 'block';
-        btnMain.innerText = "INSTAGRAM ▲"; // Cambiamos la flecha hacia arriba
-    } else {
-        subMenu.style.display = 'none';
-        btnMain.innerText = "INSTAGRAM ▼"; // Cambiamos la flecha hacia abajo
     }
 }
 
