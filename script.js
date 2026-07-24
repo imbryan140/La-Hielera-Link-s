@@ -43,6 +43,15 @@ function toggleWhatsapp() {
         btn.innerHTML = "RESERVACIONES ▼";
     }
 }
+    
+    if (subMenu.style.display === "none" || subMenu.style.display === "") {
+        subMenu.style.display = "block"; // Cambia "block" a "flex" si tu CSS actual de .sub-menu así lo requiere
+        btn.innerHTML = "RESERVACIONES ▲";
+    } else {
+        subMenu.style.display = "none";
+        btn.innerHTML = "RESERVACIONES ▼";
+    }
+}
 
     // Verificamos si está oculto
     if (subMenu.style.display === 'none' || subMenu.style.display === '') {
