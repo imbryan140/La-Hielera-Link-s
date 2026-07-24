@@ -30,6 +30,20 @@ function toggleInstagram() {
     const subMenu = document.getElementById('sub-links-ig');
     const btnMain = document.getElementById('btn-ig-main');
 
+    // FUNCIÓN PARA DESPLEGAR WHATSAPP
+function toggleWhatsapp() {
+    var subMenu = document.getElementById("sub-links-wa");
+    var btn = document.getElementById("btn-wa-main");
+    
+    if (subMenu.style.display === "none" || subMenu.style.display === "") {
+        subMenu.style.display = "block"; // Cambia "block" a "flex" si tu CSS actual de .sub-menu así lo requiere
+        btn.innerHTML = "RESERVACIONES ▲";
+    } else {
+        subMenu.style.display = "none";
+        btn.innerHTML = "RESERVACIONES ▼";
+    }
+}
+
     // Verificamos si está oculto
     if (subMenu.style.display === 'none' || subMenu.style.display === '') {
         subMenu.style.display = 'block';
