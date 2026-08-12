@@ -15,6 +15,7 @@
     aspect-ratio: 1; /* Cuadrado perfecto */
     cursor: pointer;
     transition: transform 0.2s;
+    width: 100%;
 }
 .mesa:hover:not(.vacio) { transform: scale(1.1); }
 .mesa.vacio { background-color: transparent; cursor: default; }
@@ -23,10 +24,41 @@
 .mesa.pendiente { background-color: #f39c12; }
 .mesa.confirmada { background-color: #e74c3c; cursor: not-allowed; }
 
+/* Leyenda superior */
+.croquis-header {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.croquis-header h1 {
+    font-family: 'Impact', sans-serif;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.leyenda {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.9rem;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.badge.libre { background-color: white; color: black; }
+.badge.pendiente { background-color: #f39c12; color: white; }
+.badge.confirmada { background-color: #e74c3c; color: white; }
+
 /* Títulos de zonas */
 .titulo-zona {
     font-size: 1.5rem;
-    font-family: 'Impact', sans-serif; /* Aproximación a la fuente alargada */
+    font-family: 'Impact', sans-serif;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 5px;
@@ -48,15 +80,25 @@
     gap: 20px;
 }
 
-/* ZONA VIP */
+/* ZONA VIP CORREGIDA */
 .zona-vip {
     flex: 1;
-    border: 2px solid #a3724c; /* Marco color cobre/marrón */
+    border: 2px solid #a3724c;
     position: relative;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* Columna izquierda doble, columna derecha simple */
-    gap: 10px;
+    padding: 35px 10px 15px 10px; /* Margen superior para el bloque marrón */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenido-vip-interno {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .mesas-vip-left {
@@ -73,34 +115,49 @@
 }
 
 .texto-vip {
-    position: absolute;
-    top: 20px;
-    left: 45%;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
     font-family: 'Impact', sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #fff;
+    text-align: center;
 }
 
-.bloque-marron-top-vip { background: #a3724c; height: 30px; width: 100%; position: absolute; top:0; left:0;}
-.bloque-marron-bottom-vip { background: #a3724c; height: 60px; width: 40px; position: absolute; bottom: 10px; left: 10px;}
+.bloque-marron-top-vip { 
+    background: #a3724c; 
+    height: 25px; 
+    width: 100%; 
+    position: absolute; 
+    top: 0; 
+    left: 0;
+}
+
+.bloque-marron-bottom-vip { 
+    background: #a3724c; 
+    height: 40px; 
+    width: 35px; 
+    position: absolute; 
+    bottom: 5px; 
+    left: 5px;
+}
 
 /* ZONA RUMBERA */
 .zona-rumbera {
     flex: 2;
     border: 2px solid #a3724c;
     padding: 10px;
-    padding-top: 0;
 }
 
 .grid-rumbera {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas de mesas */
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
 }
 
 .bloque-negro-derecho {
-    width: 60px;
+    width: 40px;
     background: #000;
-    height: 100%;
 }
 
 /* === SECCIÓN MEDIA (LATINA II + Bloque Curvo) === */
@@ -112,18 +169,21 @@
 
 .zona-latina-ii {
     flex: 1;
+    border: 2px solid #a3724c;
+    padding: 10px;
 }
 
 .grid-latina-ii {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 6px;
+    margin-bottom: 10px;
 }
 
 .bloque-marron-curvo {
-    flex: 2;
+    flex: 1.5;
     background: #a3724c;
-    border-top-left-radius: 60px; /* La curva que se ve en la imagen */
+    border-top-left-radius: 50px;
 }
 
 /* === SECCIÓN INFERIOR (LATINA I) === */
@@ -135,6 +195,6 @@
 
 .grid-latina-i {
     display: grid;
-    grid-template-columns: repeat(12, 1fr); /* Grid alargado */
-    gap: 5px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
 }
