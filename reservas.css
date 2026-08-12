@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #0b0b0b; /* Fondo que se adapta en PC */
+    background-color: #0b0b0b;
     font-family: 'Poppins', sans-serif;
     color: white;
 }
@@ -22,10 +22,10 @@ body {
 /* Contenedor principal con relación estricta 9:16 */
 .reservas-container {
     width: 100%;
-    max-width: 420px; /* Ancho máximo ideal para proporción 9:16 vertical */
+    max-width: 420px;
     height: auto;
     min-height: 850px;
-    background-color: #121212; /* Fondo interno del plano */
+    background-color: #121212;
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -68,7 +68,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     position: relative;
     border: 1px solid #222;
     padding: 10px;
@@ -91,7 +91,7 @@ body {
 /* Títulos de zonas */
 .titulo-zona {
     font-family: 'Impact', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     letter-spacing: 1.5px;
     color: #fff;
     display: block;
@@ -101,43 +101,43 @@ body {
 /* Fila Superior (VIP + Rumbera) */
 .fila-superior {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .zona-vip-box {
-    flex: 1;
+    flex: 1.1;
 }
 
 .vip-layout {
     display: flex;
     background: #000;
     position: relative;
-    padding-top: 5px;
+    gap: 4px;
 }
 
-.bloque-marron-izq {
-    width: 18px;
+/* Bloque marrón en forma de L idéntico al diseño */
+.bloque-marron-l {
+    width: 22px;
     background: #a3724c;
-    margin-right: 4px;
-    height: 100%;
-    min-height: 140px;
+    flex-shrink: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 42%, 40% 42%, 40% 100%, 0 100%);
 }
 
 .grid-vip {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
+    gap: 3px;
 }
 
 .zona-rumbera-box {
-    flex: 1.5;
+    flex: 1.4;
 }
 
 .grid-rumbera {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    gap: 3px;
 }
 
 /* Latina II */
@@ -148,7 +148,7 @@ body {
 .grid-latina2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
+    gap: 3px;
 }
 
 /* Latina I */
@@ -158,6 +158,6 @@ body {
 
 .grid-latina1 {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 3px;
+    grid-template-columns: repeat(14, 1fr);
+    gap: 2px;
 }
