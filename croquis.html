@@ -1,41 +1,83 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Croquis - La Hielera</title>
-    <link rel="stylesheet" href="style.css"> <!-- Tu CSS base -->
-    <link rel="stylesheet" href="croquis.css"> <!-- CSS específico del mapa -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="main-container croquis-wrapper">
-        <header>
-            <h1 class="brand-name" style="font-size: 2rem;">SELECCIONA TU MESA</h1>
-            <div class="leyenda">
-                <span class="badge libre">Libre</span>
-                <span class="badge pendiente">Pendiente (40 min)</span>
-                <span class="badge confirmada">Ocupada</span>
+<div class="croquis-container">
+    <header class="croquis-header">
+        <h1>RESERVAR MESA</h1>
+        <div class="leyenda">
+            <span class="badge libre">Libre</span>
+            <span class="badge pendiente">Pendiente</span>
+            <span class="badge confirmada">Ocupada</span>
+        </div>
+    </header>
+
+    <div class="plano-hielera">
+        <!-- SECCIÓN SUPERIOR -->
+        <div class="seccion-superior">
+            <!-- ZONA VIP (Izquierda) -->
+            <div class="zona-vip">
+                <div class="bloque-marron-top-vip"></div>
+                <div class="mesas-vip-left">
+                    <div class="mesa" id="vip-1"></div>
+                    <div class="mesa" id="vip-2"></div>
+                    <div class="mesa" id="vip-3"></div>
+                    <div class="mesa" id="vip-4"></div>
+                    <div class="mesa vacio"></div> <!-- Espacio vacío en la imagen -->
+                    <div class="mesa" id="vip-5"></div>
+                    <div class="mesa" id="vip-6"></div>
+                    <div class="mesa" id="vip-7"></div>
+                </div>
+                <div class="texto-vip">VIP</div>
+                <div class="mesas-vip-right">
+                    <!-- Columna derecha del VIP (10 mesas) -->
+                    <div class="mesa" id="vip-8"></div><div class="mesa" id="vip-9"></div><div class="mesa" id="vip-10"></div>
+                    <div class="mesa" id="vip-11"></div><div class="mesa" id="vip-12"></div><div class="mesa" id="vip-13"></div>
+                    <div class="mesa" id="vip-14"></div><div class="mesa" id="vip-15"></div><div class="mesa" id="vip-16"></div>
+                    <div class="mesa" id="vip-17"></div>
+                </div>
+                <div class="bloque-marron-bottom-vip"></div>
             </div>
-        </header>
 
-        <!-- El escenario o barra para darle orientación espacial al cliente -->
-        <div class="referencia-espacial">TARIMA / BARRA PRINCIPAL</div>
-
-        <!-- El grid de mesas -->
-        <div class="mapa-mesas" id="mapa-mesas">
-            <!-- Tienen ID exacto para la base de datos -->
-            <div class="mesa libre" id="mesa-1" onclick="reservarMesa('mesa-1')">1</div>
-            <div class="mesa libre" id="mesa-2" onclick="reservarMesa('mesa-2')">2</div>
-            <div class="mesa libre" id="mesa-3" onclick="reservarMesa('mesa-3')">3</div>
-            <div class="mesa libre" id="mesa-4" onclick="reservarMesa('mesa-4')">4</div>
-            <div class="mesa libre" id="mesa-5" onclick="reservarMesa('mesa-5')">5</div>
-            <div class="mesa libre" id="mesa-6" onclick="reservarMesa('mesa-6')">6</div>
+            <!-- ZONA RUMBERA (Centro) -->
+            <div class="zona-rumbera">
+                <div class="titulo-zona">RUMBERA</div>
+                <div class="grid-rumbera">
+                    <!-- Aquí generarás las 40 mesas (4 columnas x 10 filas). 
+                         Pongo algunas de ejemplo para no hacer el código infinito -->
+                    <div class="mesa" id="rum-1"></div> <div class="mesa" id="rum-2"></div> 
+                    <div class="mesa" id="rum-3"></div> <div class="mesa" id="rum-4"></div>
+                    <!-- Añade el resto de div.mesa hasta rum-40 -->
+                </div>
+            </div>
+            
+            <!-- BLOQUE NEGRO DERECHO (Pasillo o servicio) -->
+            <div class="bloque-negro-derecho"></div>
         </div>
 
-        <a href="index.html" class="btn-link btn-volver">VOLVER AL INICIO</a>
-    </div>
+        <!-- SECCIÓN MEDIA -->
+        <div class="seccion-media">
+            <!-- ZONA LATINA II -->
+            <div class="zona-latina-ii">
+                <div class="grid-latina-ii">
+                    <!-- 3 columnas x 4 filas aprox -->
+                    <div class="mesa" id="l2-1"></div><div class="mesa" id="l2-2"></div><div class="mesa" id="l2-3"></div>
+                    <div class="mesa" id="l2-4"></div><div class="mesa" id="l2-5"></div><div class="mesa" id="l2-6"></div>
+                    <div class="mesa" id="l2-7"></div><div class="mesa" id="l2-8"></div><div class="mesa" id="l2-9"></div>
+                    <div class="mesa vacio"></div><div class="mesa" id="l2-10"></div><div class="mesa vacio"></div>
+                </div>
+                <div class="titulo-zona" style="text-align: left;">LATINA II</div>
+            </div>
+            
+            <!-- BLOQUE MARRÓN GRANDE (Curvo) -->
+            <div class="bloque-marron-curvo"></div>
+        </div>
 
-    <script type="module" src="croquis.js"></script>
-</body>
-</html>
+        <!-- SECCIÓN INFERIOR: LATINA I -->
+        <div class="zona-latina-i">
+            <div class="grid-latina-i">
+                <!-- Es un grid alargado de unas 10 columnas x 3 filas -->
+                <div class="mesa" id="l1-1"></div><div class="mesa vacio"></div><div class="mesa" id="l1-2"></div>
+                <div class="mesa" id="l1-3"></div><div class="mesa" id="l1-4"></div><div class="mesa" id="l1-5"></div>
+                <!-- Llena las demás según el plano -->
+            </div>
+            <div class="titulo-zona" style="text-align: left; margin-top: 5px;">LATINA I</div>
+        </div>
+    </div>
+</div>
