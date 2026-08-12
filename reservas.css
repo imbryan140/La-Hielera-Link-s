@@ -80,7 +80,7 @@ body {
     width: 100%;
 }
 .mesa:hover { transform: scale(1.1); }
-.mesa.vacio { background-color: transparent; cursor: default; }
+.mesa.vacio { background-color: transparent; cursor: default; pointer-events: none; }
 .mesa.pendiente { background-color: #f39c12 !important; }
 .mesa.confirmada { background-color: #e74c3c !important; cursor: not-allowed; }
 
@@ -104,12 +104,26 @@ body {
     width: 45%;
 }
 
-/* VIP en 3 columnas exactas según indicación */
+/* Estructura interna de VIP con subcolumnas */
 .grid-vip {
+    display: flex;
+    gap: 4px;
+    background: #000;
+}
+
+.columna-vip {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.columna-vip-9 {
+    flex: 1.2;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4px;
-    background: #000;
+    align-content: start;
 }
 
 .zona-rumbera-box {
