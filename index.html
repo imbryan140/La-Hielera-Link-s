@@ -3,44 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Menú digital, reservaciones y servicios de La Hielera - Restaurant, Coffee & Ice Cream.">
     <title>La Hielera de Turmero</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;900&display=swap" rel="stylesheet">
+    <style>
+        .main-container { 
+            display: block; 
+        }
+    </style>
 </head>
 <body>
 
     <div class="main-container" id="content">
         <header>
-            <img src="logo.png" alt="Logo de La Hielera" class="logo">
+            <img src="logo.png" alt="La Hielera" class="logo">
+            <h1 class="brand-name">LA HIELERA</h1>
             <p class="subtitle">RESTAURANT - COFFEE & ICE CREAM</p>
         </header>
 
         <div class="banner-carousel">
             <div class="carousel-track">
-                <div class="slide active"><img src="BANNERALMUERZOSDESDE5,99.png" alt="Promoción de Almuerzos"></div>
-                <div class="slide"><img src="BANNERDELIVERY.png" alt="Promoción de Delivery"></div>
-                <div class="slide"><img src="BANNERRUMBERO.png" alt="Promoción Rumbera"></div>
+                <div class="slide active"><img src="BANNERALMUERZOSDESDE5,99.png" alt="Promoción 1"></div>
+                <div class="slide"><img src="BANNERDELIVERY.png" alt="Promoción 2"></div>
+                <div class="slide"><img src="BANNERRUMBERO.png" alt="Promoción 3"></div>
             </div>
         </div>
 
         <section class="links">
             <div class="instagram-container">
-                <button class="btn-link" id="btn-ig-main">
+                <button onclick="toggleInstagram()" class="btn-link" id="btn-ig-main">
                     INSTAGRAM ▼
                 </button>
                 <div id="sub-links-ig" class="sub-menu" style="display: none;">
-                    <a href="https://www.instagram.com/lahieleracoffee/" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">COFFEE</a>
-                    <a href="https://www.instagram.com/lahielerarumbera/" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">RUMBERA</a>
-                    <a href="https://www.instagram.com/lahielerabodegon/" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">BODEGÓN</a>
+                    <a href="https://www.instagram.com/lahieleracoffee/" class="btn-link sub-item">COFFEE</a>
+                    <a href="https://www.instagram.com/lahielerarumbera/" class="btn-link sub-item">RUMBERA</a>
+                    <a href="https://www.instagram.com/lahielerabodegon/" class="btn-link sub-item">BODEGÓN</a>
                 </div>
             </div>
 
-            <a href="/ruta-a-tu-croquis-de-mesas" class="btn-link">RESERVAR MESA</a>
-            <a href="https://maps.app.goo.gl/35St4FDaA5xZcnmv5" class="btn-link" target="_blank" rel="noopener noreferrer">UBICACIÓN</a>
+            <!-- ENLACE DIRECTO AL CROQUIS DE RESERVAS -->
+            <a href="/ruta-a-tu-croquis-de-mesas" class="btn-link">RESERVAR MESA (CROQUIS)</a>
+            
+            <a href="https://maps.app.goo.gl/35St4FDaA5xZcnmv5" class="btn-link">UBICACIÓN</a>
             <a href="https://la-hielera-link-s.vercel.app/menu.html" class="btn-link">MENÚ DIGITAL</a>
             
-            <button class="btn-link btn-wifi" id="btn-wifi-main">CONECTAR WIFI</button>
+            <button onclick="copyWifi()" class="btn-link btn-wifi">CONECTAR WIFI</button>
         </section>
 
         <footer>
@@ -49,7 +56,7 @@
         </footer>
     </div>
 
-    <!-- Script único definido como módulo -->
+    <!-- AQUÍ ESTÁ EL CAMBIO CRÍTICO COMO MÓDULO -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
