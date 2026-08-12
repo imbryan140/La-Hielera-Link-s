@@ -74,6 +74,13 @@
     gap: 15px;
 }
 
+/* Soporte para el SVG integrado en el plano */
+.svg-croquis {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 /* === SECCIÓN SUPERIOR (VIP + RUMBERA + Bloque Negro) === */
 .seccion-superior {
     display: flex;
