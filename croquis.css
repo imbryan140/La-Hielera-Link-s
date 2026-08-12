@@ -87,66 +87,51 @@
     gap: 20px;
 }
 
-/* ZONA VIP CORREGIDA */
+/* ZONA VIP AJUSTADA */
 .zona-vip {
     flex: 1;
     border: 2px solid #a3724c;
     position: relative;
-    padding: 35px 10px 15px 10px; /* Margen superior para el bloque marrón */
+    padding: 35px 8px 15px 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    min-height: 380px; /* Asegura altura para que entren todas las filas */
 }
 
 .contenido-vip-interno {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    justify-content: space-between;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
+    gap: 5px;
 }
 
 .mesas-vip-left {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
-    align-content: start;
+    gap: 4px;
+    width: 45%;
 }
 
 .mesas-vip-right {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 5px;
+    gap: 4px;
+    width: 22%;
 }
 
 .texto-vip {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     font-family: 'Impact', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     letter-spacing: 2px;
     color: #fff;
     text-align: center;
-}
-
-.bloque-marron-top-vip { 
-    background: #a3724c; 
-    height: 25px; 
-    width: 100%; 
-    position: absolute; 
-    top: 0; 
-    left: 0;
-}
-
-.bloque-marron-bottom-vip { 
-    background: #a3724c; 
-    height: 40px; 
-    width: 35px; 
-    position: absolute; 
-    bottom: 5px; 
-    left: 5px;
+    width: 20%;
 }
 
 /* ZONA RUMBERA */
