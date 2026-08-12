@@ -21,7 +21,6 @@ const db = getFirestore(app);
 
 // ==========================================
 // 3. FUNCIONES DE INTERFAZ (EXPUESTAS AL GLOBAL)
-// Al usar type="module", debemos atarlas a 'window' para que los onclick del HTML las reconozcan.
 // ==========================================
 
 window.copyWifi = function() {
@@ -64,7 +63,7 @@ function escucharMesas() {
     const LIMITE_TIEMPO_MS = 40 * 60 * 1000; // 40 Minutos
 
     onSnapshot(collection(db, "reservas"), (snapshot) => {
-        const tiempoActual = Date.now(); // Se calcula cada vez que hay un cambio
+        const tiempoActual = Date.now();
 
         snapshot.docChanges().forEach((change) => {
             const data = change.doc.data();
@@ -72,7 +71,6 @@ function escucharMesas() {
             const elementoMesa = document.getElementById(mesaId);
 
             if (elementoMesa) {
-                // Limpiar estados
                 elementoMesa.classList.remove("pendiente", "confirmada");
 
                 if (change.type === "removed") return;
@@ -96,7 +94,6 @@ function escucharMesas() {
 // 5. INICIALIZADOR ÚNICO (DOM CONTENT LOADED)
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-    // A. Iniciar Carrusel
     const slides = document.querySelectorAll(".slide");
     let currentIndex = 0;
     const intervalTime = 3000; 
@@ -112,6 +109,5 @@ document.addEventListener("DOMContentLoaded", () => {
         setInterval(nextSlide, intervalTime);
     }
 
-    // B. Iniciar Escucha de Firebase
     escucharMesas();
 });
