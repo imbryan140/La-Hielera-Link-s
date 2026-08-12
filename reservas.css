@@ -7,7 +7,7 @@ body {
     color: white;
 }
 
-/* Contenedor principal sin límites forzados de 9:16 para ajustarse al diseño real */
+/* Contenedor principal */
 .main-viewport {
     width: 100vw;
     min-height: 100vh;
@@ -19,10 +19,10 @@ body {
     box-sizing: border-box;
 }
 
-/* Contenedor del plano con ancho adaptado al diseño */
+/* Contenedor del plano */
 .reservas-container {
     width: 100%;
-    max-width: 520px; /* Ancho holgado para que respire idéntico a Photoshop */
+    max-width: 480px;
     background-color: #121212;
     display: flex;
     flex-direction: column;
@@ -97,37 +97,23 @@ body {
 /* Fila Superior (VIP + Rumbera) */
 .fila-superior {
     display: flex;
-    gap: 15px;
+    gap: 12px;
 }
 
 .zona-vip-box {
-    width: 35%;
+    width: 45%;
 }
 
-.vip-layout {
-    display: flex;
-    background: #000;
-    position: relative;
-    gap: 6px;
-}
-
-/* Bloque marrón en L exacto */
-.bloque-marron-l {
-    width: 26px;
-    background: #a3724c;
-    flex-shrink: 0;
-    clip-path: polygon(0 0, 100% 0, 100% 42%, 40% 42%, 40% 100%, 0 100%);
-}
-
+/* VIP en 3 columnas exactas según indicación */
 .grid-vip {
-    flex: 1;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 4px;
+    background: #000;
 }
 
 .zona-rumbera-box {
-    width: 62%;
+    width: 53%;
 }
 
 .grid-rumbera {
@@ -138,30 +124,22 @@ body {
 
 /* Latina II */
 .zona-latina2-box {
-    width: 35%;
+    width: 45%;
 }
 
 .grid-latina2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4px;
-    /* Escalona la última fila para que coincida con la imagen de PS */
-    grid-template-areas: 
-        "m1 m2 m3"
-        "m4 m5 m6"
-        "m7 m8 .";
 }
-.grid-latina2 .mesa:nth-child(7) { grid-area: m7; }
-.grid-latina2 .mesa:nth-child(8) { grid-area: m8; }
-.grid-latina2 .mesa:nth-child(9) { grid-area: .; background: transparent; cursor: default; }
 
-/* Latina I */
+/* Latina I (10 columnas) */
 .zona-latina1-box {
     width: 100%;
 }
 
 .grid-latina1 {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     gap: 4px;
 }
