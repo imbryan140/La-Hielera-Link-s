@@ -57,18 +57,6 @@ window.toggleInstagram = function() {
     }
 };
 
-window.toggleWhatsapp = function() {
-    const subMenu = document.getElementById("sub-links-wa");
-    const btn = document.getElementById("btn-wa-main");
-    if (subMenu.style.display === "none" || subMenu.style.display === "") {
-        subMenu.style.display = "block"; 
-        btn.innerHTML = "RESERVACIONES ▲";
-    } else {
-        subMenu.style.display = "none";
-        btn.innerHTML = "RESERVACIONES ▼";
-    }
-};
-
 // ==========================================
 // 4. LÓGICA DE FIREBASE (RESERVAS)
 // ==========================================
