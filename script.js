@@ -1,11 +1,11 @@
 // ==========================================
-// 1. IMPORTACIONES (SIEMPRE EN LA LÍNEA 1)
+// 1. IMPORTACIONES
 // ==========================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 // ==========================================
-// 2. CONFIGURACIÓN DE FIREBASE
+// 2. CONFIGURACIÓN DE FIREBASE (Reemplaza con tus datos reales)
 // ==========================================
 const firebaseConfig = {
   apiKey: "TU_API_KEY_AQUI",
@@ -20,9 +20,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ==========================================
-// 3. FUNCIONES DE INTERFAZ (EXPUESTAS AL GLOBAL)
+// 3. FUNCIONES DE INTERFAZ (Atadas a window por ser módulo)
 // ==========================================
-
 window.copyWifi = function() {
     const wifiPass = "LaHielera"; 
     navigator.clipboard.writeText(wifiPass).then(() => {
@@ -57,43 +56,10 @@ window.toggleInstagram = function() {
 };
 
 // ==========================================
-// 4. LÓGICA DE FIREBASE (RESERVAS)
-// ==========================================
-function escucharMesas() {
-    const LIMITE_TIEMPO_MS = 40 * 60 * 1000; // 40 Minutos
-
-    onSnapshot(collection(db, "reservas"), (snapshot) => {
-        const tiempoActual = Date.now();
-
-        snapshot.docChanges().forEach((change) => {
-            const data = change.doc.data();
-            const mesaId = change.doc.id;
-            const elementoMesa = document.getElementById(mesaId);
-
-            if (elementoMesa) {
-                elementoMesa.classList.remove("pendiente", "confirmada");
-
-                if (change.type === "removed") return;
-
-                if (data.estado === "pendiente") {
-                    const tiempoCreacion = data.creadoEn ? data.creadoEn.toMillis() : tiempoActual;
-                    const transcurrido = tiempoActual - tiempoCreacion;
-                    
-                    if (transcurrido <= LIMITE_TIEMPO_MS) {
-                        elementoMesa.classList.add("pendiente");
-                    }
-                } else if (data.estado === "confirmada") {
-                    elementoMesa.classList.add("confirmada");
-                }
-            }
-        });
-    });
-}
-
-// ==========================================
-// 5. INICIALIZADOR ÚNICO (DOM CONTENT LOADED)
+// 4. LÓGICA DE FIREBASE (RESERVAS) Y CARRUSEL
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
+    // A. Lógica del Carrusel
     const slides = document.querySelectorAll(".slide");
     let currentIndex = 0;
     const intervalTime = 3000; 
@@ -109,5 +75,28 @@ document.addEventListener("DOMContentLoaded", () => {
         setInterval(nextSlide, intervalTime);
     }
 
-    escucharMesas();
+    // B. Lógica de Firebase para escuchar mesas en tiempo real
+    const LIMITE_TIEMPO_MS = 40 * 60 * 1000; 
+    onSnapshot(collection(db, "reservas"), (snapshot) => {
+        const tiempoActual = Date.now();
+        snapshot.docChanges().forEach((change) => {
+            const data = change.doc.data();
+            const mesaId = change.doc.id;
+            const elementoMesa = document.getElementById(mesaId);
+
+            if (elementoMesa) {
+                elementoMesa.classList.remove("pendiente", "confirmada");
+                if (change.type === "removed") return;
+                
+                if (data.estado === "pendiente") {
+                    const tiempoCreacion = data.creadoEn ? data.creadoEn.toMillis() : tiempoActual;
+                    if ((tiempoActual - tiempoCreacion) <= LIMITE_TIEMPO_MS) {
+                        elementoMesa.classList.add("pendiente");
+                    }
+                } else if (data.estado === "confirmada") {
+                    elementoMesa.classList.add("confirmada");
+                }
+            }
+        });
+    });
 });
