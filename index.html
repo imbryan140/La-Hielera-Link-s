@@ -3,61 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Menú digital, reservaciones y servicios de La Hielera - Restaurant, Coffee & Ice Cream.">
     <title>La Hielera de Turmero</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;900&display=swap" rel="stylesheet">
-    <style>
-        /* Se eliminaron los estilos de la pantalla de bloqueo */
-        
-        /* El contenedor principal ahora se muestra de forma predeterminada */
-        .main-container { 
-            display: block; 
-        }
-    </style>
 </head>
 <body>
 
     <div class="main-container" id="content">
         <header>
-            <img src="logo.png" alt="La Hielera" class="logo">
-            <h1 class="brand-name">LA HIELERA</h1>
+            <img src="logo.png" alt="Logo de La Hielera" class="logo">
             <p class="subtitle">RESTAURANT - COFFEE & ICE CREAM</p>
         </header>
 
-        <!-- NUEVO: Carrusel de Banners (Cambia banner1.png, etc., por tus archivos reales) -->
         <div class="banner-carousel">
             <div class="carousel-track">
-                <div class="slide active"><img src="BANNERALMUERZOSDESDE5,99.png" alt="Promoción 1"></div>
-                <div class="slide"><img src="BANNERDELIVERY.png" alt="Promoción 2"></div>
-                <div class="slide"><img src="BANNERRUMBERO.png" alt="Promoción 3"></div>
+                <div class="slide active"><img src="BANNERALMUERZOSDESDE5,99.png" alt="Promoción de Almuerzos"></div>
+                <div class="slide"><img src="BANNERDELIVERY.png" alt="Promoción de Delivery"></div>
+                <div class="slide"><img src="BANNERRUMBERO.png" alt="Promoción Rumbera"></div>
             </div>
         </div>
 
         <section class="links">
             <div class="instagram-container">
-                <button onclick="toggleInstagram()" class="btn-link" id="btn-ig-main">
+                <button class="btn-link" id="btn-ig-main">
                     INSTAGRAM ▼
                 </button>
                 <div id="sub-links-ig" class="sub-menu" style="display: none;">
-                    <a href="https://www.instagram.com/lahieleracoffee/" class="btn-link sub-item">COFFEE</a>
-                    <a href="https://www.instagram.com/lahielerarumbera/" class="btn-link sub-item">RUMBERA</a>
-                    <a href="https://www.instagram.com/lahielerabodegon/" class="btn-link sub-item">BODEGÓN</a>
+                    <a href="https://www.instagram.com/lahieleracoffee/" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">COFFEE</a>
+                    <a href="https://www.instagram.com/lahielerarumbera/" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">RUMBERA</a>
+                    <a href="https://www.instagram.com/lahielerabodegon/" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">BODEGÓN</a>
                 </div>
             </div>
 
             <div class="whatsapp-container">
-    <button onclick="toggleWhatsapp()" class="btn-link" id="btn-wa-main">
-        RESERVACIONES ▼
-    </button>
-    <div id="sub-links-wa" class="sub-menu" style="display: none;">
-        <a href="https://api.whatsapp.com/send/?phone=584128151306" class="btn-link sub-item">WHATSAPP 1</a>
-        <a href="https://api.whatsapp.com/send/?phone=584243010770" class="btn-link sub-item">WHATSAPP 2</a>
-    </div>
-</div>
-            <a href="https://maps.app.goo.gl/35St4FDaA5xZcnmv5" class="btn-link">UBICACIÓN</a>
+                <button class="btn-link" id="btn-wa-main">
+                    RESERVACIONES ▼
+                </button>
+                <div id="sub-links-wa" class="sub-menu" style="display: none;">
+                    <a href="https://api.whatsapp.com/send/?phone=584128151306" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">WHATSAPP 1</a>
+                    <a href="https://api.whatsapp.com/send/?phone=584243010770" class="btn-link sub-item" target="_blank" rel="noopener noreferrer">WHATSAPP 2</a>
+                </div>
+            </div>
+            
+            <a href="https://maps.app.goo.gl/35St4FDaA5xZcnmv5" class="btn-link" target="_blank" rel="noopener noreferrer">UBICACIÓN</a>
             <a href="https://la-hielera-link-s.vercel.app/menu.html" class="btn-link">MENÚ DIGITAL</a>
             
-            <button onclick="copyWifi()" class="btn-link btn-wifi">CONECTAR WIFI</button>
+            <button class="btn-link btn-wifi" id="btn-wifi-main">CONECTAR WIFI</button>
         </section>
 
         <footer>
@@ -66,8 +58,7 @@
         </footer>
     </div>
 
-    <!-- Se removió la función checkAccess que controlaba el bloqueo -->
-    <script src="script.js"></script>
-<script type="module" src="script.js"></script>
+    <!-- Script único definido como módulo -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
