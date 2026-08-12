@@ -1,192 +1,161 @@
-/* Contenedor General */
-.croquis-container {
-    background-color: #111;
-    color: white;
-    padding: 20px;
+/* Fondo general adaptativo a la pantalla */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0b0b0b; /* Fondo que se adapta en PC */
     font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+/* Contenedor que centra el bloque 9:16 */
+.main-viewport {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Contenedor principal con relación estricta 9:16 */
+.reservas-container {
+    width: 100%;
+    max-width: 420px; /* Ancho máximo ideal para proporción 9:16 vertical */
+    height: 100%;
+    max-height: 850px;
+    background-color: #121212; /* Fondo interno del plano */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    border-radius: 12px;
 }
 
-/* Base de las Mesas (Cuadrados Blancos) */
-.mesa {
-    background-color: white; /* Estado libre por defecto */
-    aspect-ratio: 1; /* Cuadrado perfecto */
-    cursor: pointer;
-    transition: transform 0.2s;
-    width: 100%;
-}
-.mesa:hover:not(.vacio) { transform: scale(1.1); }
-.mesa.vacio { background-color: transparent; cursor: default; }
-
-/* Estados dinámicos de las mesas (Controlados por tu JS) */
-.mesa.pendiente { background-color: #f39c12; }
-.mesa.confirmada { background-color: #e74c3c; cursor: not-allowed; }
-
-/* Leyenda superior */
-.croquis-header {
+/* Encabezado */
+.reservas-header {
     text-align: center;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 800px;
+    margin-bottom: 10px;
 }
 
-.croquis-header h1 {
+.reservas-header h1 {
     font-family: 'Impact', sans-serif;
     letter-spacing: 2px;
-    margin-bottom: 10px;
+    margin: 0 0 5px 0;
+    font-size: 1.5rem;
 }
 
 .leyenda {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    font-size: 0.9rem;
+    gap: 12px;
+    font-size: 0.8rem;
 }
 
 .badge {
-    padding: 4px 10px;
-    border-radius: 4px;
+    padding: 2px 8px;
+    border-radius: 3px;
     font-weight: bold;
 }
-
 .badge.libre { background-color: white; color: black; }
 .badge.pendiente { background-color: #f39c12; color: white; }
 .badge.confirmada { background-color: #e74c3c; color: white; }
 
+/* Plano general 9:16 */
+.plano-hielera {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    border: 1px solid #222;
+    padding: 10px;
+    background: #000;
+}
+
+/* Estilos de Mesas */
+.mesa {
+    background-color: white;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 100%;
+}
+.mesa:hover { transform: scale(1.1); }
+.mesa.vacio { background-color: transparent; cursor: default; }
+.mesa.pendiente { background-color: #f39c12 !important; }
+.mesa.confirmada { background-color: #e74c3c !important; cursor: not-allowed; }
+
 /* Títulos de zonas */
 .titulo-zona {
-    font-size: 1.5rem;
     font-family: 'Impact', sans-serif;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 5px;
-    letter-spacing: 2px;
-}
-
-/* --- MAPA PRINCIPAL --- */
-.plano-hielera {
-    width: 100%;
-    max-width: 800px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* Soporte para el SVG integrado en el plano */
-.svg-croquis {
-    width: 100%;
-    height: auto;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    color: #fff;
     display: block;
+    margin-bottom: 4px;
 }
 
-/* === SECCIÓN SUPERIOR (VIP + RUMBERA + Bloque Negro) === */
-.seccion-superior {
+/* Fila Superior (VIP + Rumbera) */
+.fila-superior {
     display: flex;
-    gap: 20px;
+    gap: 10px;
 }
 
-/* ZONA VIP AJUSTADA */
-.zona-vip {
+.zona-vip-box {
     flex: 1;
-    border: 2px solid #a3724c;
+}
+
+.vip-layout {
+    display: flex;
+    background: #000;
     position: relative;
-    padding: 35px 8px 15px 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 380px; /* Asegura altura para que entren todas las filas */
+    padding-top: 5px;
 }
 
-.contenido-vip-interno {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 5px;
-    gap: 5px;
+.bloque-marron-izq {
+    width: 18px;
+    background: #a3724c;
+    margin-right: 4px;
+    height: 100%;
+    min-height: 140px;
 }
 
-.mesas-vip-left {
+.grid-vip {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 4px;
-    width: 45%;
 }
 
-.mesas-vip-right {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4px;
-    width: 22%;
-}
-
-.texto-vip {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-family: 'Impact', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    color: #fff;
-    text-align: center;
-    width: 20%;
-}
-
-/* ZONA RUMBERA */
-.zona-rumbera {
-    flex: 2;
-    border: 2px solid #a3724c;
-    padding: 10px;
+.zona-rumbera-box {
+    flex: 1.5;
 }
 
 .grid-rumbera {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
+    gap: 4px;
 }
 
-.bloque-negro-derecho {
-    width: 40px;
-    background: #000;
+/* Latina II */
+.zona-latina2-box {
+    width: 45%;
 }
 
-/* === SECCIÓN MEDIA (LATINA II + Bloque Curvo) === */
-.seccion-media {
-    display: flex;
-    gap: 20px;
-    margin-top: 10px;
-}
-
-.zona-latina-ii {
-    flex: 1;
-    border: 2px solid #a3724c;
-    padding: 10px;
-}
-
-.grid-latina-ii {
+.grid-latina2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    margin-bottom: 10px;
+    gap: 4px;
 }
 
-.bloque-marron-curvo {
-    flex: 1.5;
-    background: #a3724c;
-    border-top-left-radius: 50px;
+/* Latina I */
+.zona-latina1-box {
+    width: 100%;
 }
 
-/* === SECCIÓN INFERIOR (LATINA I) === */
-.zona-latina-i {
-    border: 2px solid #a3724c;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.grid-latina-i {
+.grid-latina1 {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 4px;
+    gap: 3px;
 }
