@@ -20,25 +20,87 @@
         </div>
     </header>
 
-    <!-- PLANO BASADO EN EL SVG LIMPIO -->
     <div class="plano-hielera">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2970 3840" class="svg-croquis">
-            <!-- Fondo General -->
-            <path fill="#1A1A1A" d="M0 0L2970 0L2970 1136.86L2970 2722.31L2970 3840L0 3840L0 2778.67L0 1081.9L0 0Z"/>
-            
-            <!-- Estructura / Bloques del Local -->
-            <path fill="#A47048" d="M1103.67 346.605C1141.56 347.858 1181.74 347.049 1219.81 346.989L1220.31 1814.84L307.836 1814.09L307.894 1032.41L307.98 786.013C307.992 753.896 309.5 692.521 307.508 663.637C310.181 564.351 307.889 447.574 307.878 346.928L823.198 346.932C916.122 346.943 1010.86 348.159 1103.67 346.605Z"/>
+        <!-- SECCIÓN SUPERIOR -->
+        <div class="seccion-superior">
+            <!-- ZONA VIP -->
+            <div class="zona-vip">
+                <div class="bloque-marron-top-vip"></div>
+                
+                <div class="contenido-vip-interno">
+                    <div class="mesas-vip-left">
+                        <div class="mesa" id="vip-1"></div><div class="mesa" id="vip-2"></div>
+                        <div class="mesa" id="vip-3"></div><div class="mesa" id="vip-4"></div>
+                        <div class="mesa vacio"></div><div class="mesa" id="vip-5"></div>
+                        <div class="mesa" id="vip-6"></div><div class="mesa" id="vip-7"></div>
+                        <div class="mesa vacio"></div><div class="mesa" id="vip-8"></div>
+                        <div class="mesa vacio"></div><div class="mesa" id="vip-9"></div>
+                        <div class="mesa vacio"></div><div class="mesa" id="vip-10"></div>
+                        <div class="mesa vacio"></div><div class="mesa" id="vip-11"></div>
+                    </div>
+                    
+                    <div class="texto-vip">VIP</div>
+                    
+                    <div class="mesas-vip-right">
+                        <div class="mesa" id="vip-12"></div>
+                        <div class="mesa" id="vip-13"></div>
+                        <div class="mesa" id="vip-14"></div>
+                        <div class="mesa" id="vip-15"></div>
+                        <div class="mesa" id="vip-16"></div>
+                        <div class="mesa" id="vip-17"></div>
+                        <div class="mesa" id="vip-18"></div>
+                        <div class="mesa" id="vip-19"></div>
+                    </div>
+                </div>
 
-            <!-- Mesas interactivas (IDs conectados a tu JS de Firebase) -->
-            <!-- Puedes añadir o mapear los IDs directamente en los elementos rect del SVG -->
-            <g id="mesas-container">
-                <rect class="mesa" id="vip-1" x="323" y="519" width="124" height="131" fill="#FEFEFE" />
-                <rect class="mesa" id="vip-2" x="323" y="685" width="124" height="131" fill="#FEFEFE" />
-                <rect class="mesa" id="rum-1" x="494" y="519" width="131" height="131" fill="#FEFEFE" />
-                <rect class="mesa" id="rum-2" x="494" y="684" width="131" height="131" fill="#FEFEFE" />
-                <rect class="mesa" id="lat-1" x="1080" y="519" width="125" height="131" fill="#FEFEFE" />
-            </g>
-        </svg>
+                <div class="bloque-marron-bottom-vip"></div>
+            </div>
+
+            <!-- ZONA RUMBERA -->
+            <div class="zona-rumbera">
+                <div class="titulo-zona">RUMBERA</div>
+                <div class="grid-rumbera">
+                    <div class="mesa" id="rum-1"></div><div class="mesa" id="rum-2"></div><div class="mesa" id="rum-3"></div><div class="mesa" id="rum-4"></div>
+                    <div class="mesa" id="rum-5"></div><div class="mesa" id="rum-6"></div><div class="mesa" id="rum-7"></div><div class="mesa" id="rum-8"></div>
+                    <div class="mesa" id="rum-9"></div><div class="mesa" id="rum-10"></div><div class="mesa" id="rum-11"></div><div class="mesa" id="rum-12"></div>
+                    <div class="mesa" id="rum-13"></div><div class="mesa" id="rum-14"></div><div class="mesa" id="rum-15"></div><div class="mesa" id="rum-16"></div>
+                    <div class="mesa" id="rum-17"></div><div class="mesa" id="rum-18"></div><div class="mesa" id="rum-19"></div><div class="mesa" id="rum-20"></div>
+                    <div class="mesa" id="rum-21"></div><div class="mesa" id="rum-22"></div><div class="mesa" id="rum-23"></div><div class="mesa" id="rum-24"></div>
+                    <div class="mesa" id="mesa-rum-25"></div><div class="mesa" id="mesa-rum-26"></div><div class="mesa" id="mesa-rum-27"></div><div class="mesa" id="mesa-rum-28"></div>
+                    <div class="mesa" id="mesa-rum-29"></div><div class="mesa" id="mesa-rum-30"></div><div class="mesa" id="mesa-rum-31"></div><div class="mesa" id="mesa-rum-32"></div>
+                    <div class="mesa" id="mesa-rum-33"></div><div class="mesa" id="mesa-rum-34"></div><div class="mesa" id="mesa-rum-35"></div><div class="mesa" id="mesa-rum-36"></div>
+                    <div class="mesa" id="mesa-rum-37"></div><div class="mesa" id="mesa-rum-38"></div><div class="mesa" id="mesa-rum-39"></div><div class="mesa" id="mesa-rum-40"></div>
+                </div>
+            </div>
+            
+            <div class="bloque-negro-derecho"></div>
+        </div>
+
+        <!-- SECCIÓN MEDIA -->
+        <div class="seccion-media">
+            <div class="zona-latina-ii">
+                <div class="grid-latina-ii">
+                    <div class="mesa" id="lat-1"></div><div class="mesa" id="l2-2"></div><div class="mesa" id="l2-3"></div>
+                    <div class="mesa" id="l2-4"></div><div class="mesa" id="l2-5"></div><div class="mesa" id="l2-6"></div>
+                    <div class="mesa" id="l2-7"></div><div class="mesa" id="l2-8"></div><div class="mesa" id="l2-9"></div>
+                    <div class="mesa" id="l2-10"></div><div class="mesa" id="l2-11"></div><div class="mesa" id="l2-12"></div>
+                    <div class="mesa vacio"></div><div class="mesa" id="l2-13"></div><div class="mesa vacio"></div>
+                </div>
+                <div class="titulo-zona" style="text-align: left;">LATINA II</div>
+            </div>
+            
+            <div class="bloque-marron-curvo"></div>
+        </div>
+
+        <!-- SECCIÓN INFERIOR -->
+        <div class="zona-latina-i">
+            <div class="grid-latina-i">
+                <div class="mesa" id="l1-1"></div><div class="mesa" id="l1-2"></div><div class="mesa" id="l1-3"></div><div class="mesa" id="l1-4"></div><div class="mesa" id="l1-5"></div><div class="mesa" id="l1-6"></div><div class="mesa" id="l1-7"></div><div class="mesa" id="l1-8"></div><div class="mesa" id="l1-9"></div><div class="mesa" id="l1-10"></div><div class="mesa" id="l1-11"></div><div class="mesa" id="l1-12"></div>
+                <div class="mesa" id="l1-13"></div><div class="mesa vacio"></div><div class="mesa" id="l1-14"></div><div class="mesa" id="l1-15"></div><div class="mesa" id="l1-16"></div><div class="mesa" id="l1-17"></div><div class="mesa" id="l1-18"></div><div class="mesa" id="l1-19"></div><div class="mesa" id="l1-20"></div><div class="mesa" id="l1-21"></div><div class="mesa" id="l1-22"></div><div class="mesa" id="l1-23"></div>
+                <div class="mesa" id="l1-24"></div><div class="mesa" id="l1-25"></div><div class="mesa" id="l1-26"></div><div class="mesa" id="l1-27"></div><div class="mesa" id="l1-28"></div><div class="mesa" id="l1-29"></div><div class="mesa" id="l1-30"></div><div class="mesa" id="l1-31"></div><div class="mesa" id="l1-32"></div><div class="mesa" id="l1-33"></div><div class="mesa" id="l1-34"></div><div class="mesa" id="l1-35"></div>
+            </div>
+            <div class="titulo-zona" style="text-align: left; margin-top: 5px;">LATINA I</div>
+        </div>
     </div>
 </div>
 
