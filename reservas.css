@@ -7,24 +7,22 @@ body {
     color: white;
 }
 
-/* Contenedor que centra el bloque 9:16 permitiendo scroll */
+/* Contenedor principal sin límites forzados de 9:16 para ajustarse al diseño real */
 .main-viewport {
     width: 100vw;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow-y: auto;
-    padding: 20px 0;
+    padding: 20px;
     box-sizing: border-box;
 }
 
-/* Contenedor principal con relación estricta 9:16 */
+/* Contenedor del plano con ancho adaptado al diseño */
 .reservas-container {
     width: 100%;
-    max-width: 420px;
-    height: auto;
-    min-height: 850px;
+    max-width: 520px; /* Ancho holgado para que respire idéntico a Photoshop */
     background-color: #121212;
     display: flex;
     flex-direction: column;
@@ -37,25 +35,25 @@ body {
 /* Encabezado */
 .reservas-header {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .reservas-header h1 {
     font-family: 'Impact', sans-serif;
     letter-spacing: 2px;
     margin: 0 0 5px 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 .leyenda {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    font-size: 0.8rem;
+    gap: 15px;
+    font-size: 0.85rem;
 }
 
 .badge {
-    padding: 2px 8px;
+    padding: 3px 10px;
     border-radius: 3px;
     font-weight: bold;
 }
@@ -63,15 +61,13 @@ body {
 .badge.pendiente { background-color: #f39c12; color: white; }
 .badge.confirmada { background-color: #e74c3c; color: white; }
 
-/* Plano general 9:16 */
+/* Plano general */
 .plano-hielera {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    position: relative;
+    gap: 15px;
     border: 1px solid #222;
-    padding: 10px;
+    padding: 12px;
     background: #000;
 }
 
@@ -91,33 +87,33 @@ body {
 /* Títulos de zonas */
 .titulo-zona {
     font-family: 'Impact', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     letter-spacing: 1.5px;
     color: #fff;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
 
 /* Fila Superior (VIP + Rumbera) */
 .fila-superior {
     display: flex;
-    gap: 8px;
+    gap: 15px;
 }
 
 .zona-vip-box {
-    flex: 1.1;
+    width: 35%;
 }
 
 .vip-layout {
     display: flex;
     background: #000;
     position: relative;
-    gap: 4px;
+    gap: 6px;
 }
 
-/* Bloque marrón en forma de L idéntico al diseño */
+/* Bloque marrón en L exacto */
 .bloque-marron-l {
-    width: 22px;
+    width: 26px;
     background: #a3724c;
     flex-shrink: 0;
     clip-path: polygon(0 0, 100% 0, 100% 42%, 40% 42%, 40% 100%, 0 100%);
@@ -127,29 +123,37 @@ body {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3px;
+    gap: 4px;
 }
 
 .zona-rumbera-box {
-    flex: 1.4;
+    width: 62%;
 }
 
 .grid-rumbera {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3px;
+    gap: 4px;
 }
 
 /* Latina II */
 .zona-latina2-box {
-    width: 45%;
+    width: 35%;
 }
 
 .grid-latina2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
+    gap: 4px;
+    /* Escalona la última fila para que coincida con la imagen de PS */
+    grid-template-areas: 
+        "m1 m2 m3"
+        "m4 m5 m6"
+        "m7 m8 .";
 }
+.grid-latina2 .mesa:nth-child(7) { grid-area: m7; }
+.grid-latina2 .mesa:nth-child(8) { grid-area: m8; }
+.grid-latina2 .mesa:nth-child(9) { grid-area: .; background: transparent; cursor: default; }
 
 /* Latina I */
 .zona-latina1-box {
@@ -158,6 +162,6 @@ body {
 
 .grid-latina1 {
     display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    gap: 2px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
 }
