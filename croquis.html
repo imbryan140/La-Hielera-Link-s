@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Croquis - La Hielera</title>
+    <link rel="stylesheet" href="style.css"> <!-- Tu CSS base -->
+    <link rel="stylesheet" href="croquis.css"> <!-- CSS específico del mapa -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container croquis-wrapper">
+        <header>
+            <h1 class="brand-name" style="font-size: 2rem;">SELECCIONA TU MESA</h1>
+            <div class="leyenda">
+                <span class="badge libre">Libre</span>
+                <span class="badge pendiente">Pendiente (40 min)</span>
+                <span class="badge confirmada">Ocupada</span>
+            </div>
+        </header>
+
+        <!-- El escenario o barra para darle orientación espacial al cliente -->
+        <div class="referencia-espacial">TARIMA / BARRA PRINCIPAL</div>
+
+        <!-- El grid de mesas -->
+        <div class="mapa-mesas" id="mapa-mesas">
+            <!-- Tienen ID exacto para la base de datos -->
+            <div class="mesa libre" id="mesa-1" onclick="reservarMesa('mesa-1')">1</div>
+            <div class="mesa libre" id="mesa-2" onclick="reservarMesa('mesa-2')">2</div>
+            <div class="mesa libre" id="mesa-3" onclick="reservarMesa('mesa-3')">3</div>
+            <div class="mesa libre" id="mesa-4" onclick="reservarMesa('mesa-4')">4</div>
+            <div class="mesa libre" id="mesa-5" onclick="reservarMesa('mesa-5')">5</div>
+            <div class="mesa libre" id="mesa-6" onclick="reservarMesa('mesa-6')">6</div>
+        </div>
+
+        <a href="index.html" class="btn-link btn-volver">VOLVER AL INICIO</a>
+    </div>
+
+    <script type="module" src="croquis.js"></script>
+</body>
+</html>
