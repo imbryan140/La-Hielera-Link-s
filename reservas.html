@@ -12,6 +12,13 @@
 
 <div class="main-viewport">
     <div class="reservas-container">
+        
+        <!-- Selector de Fecha -->
+        <div class="selector-fecha-container" style="text-align: center; margin-bottom: 20px;">
+            <label for="fecha-reserva" style="color: white; font-weight: bold; margin-right: 10px;">Selecciona el día:</label>
+            <input type="date" id="fecha-reserva" style="padding: 8px 12px; border-radius: 5px; border: none; font-family: 'Poppins', sans-serif;">
+        </div>
+
         <!-- Header / Leyenda -->
         <header class="reservas-header">
             <h1>RESERVAS</h1>
@@ -27,15 +34,12 @@
             
             <!-- ZONA VIP & RUMBERA (Fila Superior) -->
             <div class="fila-superior">
-                <!-- ZONA VIP (3 columnas: 4 izq, 4 centro, 9 der) -->
+                <!-- ZONA VIP -->
                 <div class="zona-vip-box">
                     <span class="titulo-zona">VIP</span>
                     <div class="grid-vip">
-                        <!-- Columna Izquierda (4 mesas) -->
                         <div class="mesa" id="vip-l1"></div><div class="mesa" id="vip-l2"></div><div class="mesa" id="vip-l3"></div><div class="mesa" id="vip-l4"></div>
-                        <!-- Columna Centro (4 mesas) -->
                         <div class="mesa" id="vip-c1"></div><div class="mesa" id="vip-c2"></div><div class="mesa" id="vip-c3"></div><div class="mesa" id="vip-c4"></div>
-                        <!-- Columna Derecha (9 mesas) -->
                         <div class="mesa" id="vip-r1"></div><div class="mesa" id="vip-r2"></div><div class="mesa" id="vip-r3"></div>
                         <div class="mesa" id="vip-r4"></div><div class="mesa" id="vip-r5"></div><div class="mesa" id="vip-r6"></div>
                         <div class="mesa" id="vip-r7"></div><div class="mesa" id="vip-r8"></div><div class="mesa" id="vip-r9"></div>
@@ -46,7 +50,6 @@
                 <div class="zona-rumbera-box">
                     <span class="titulo-zona">RUMBERA</span>
                     <div class="grid-rumbera">
-                        <!-- 4 columnas x 9 filas = 36 mesas -->
                         <div class="mesa" id="rum-1"></div><div class="mesa" id="rum-2"></div><div class="mesa" id="rum-3"></div><div class="mesa" id="rum-4"></div>
                         <div class="mesa" id="rum-5"></div><div class="mesa" id="rum-6"></div><div class="mesa" id="rum-7"></div><div class="mesa" id="rum-8"></div>
                         <div class="mesa" id="rum-9"></div><div class="mesa" id="rum-10"></div><div class="mesa" id="rum-11"></div><div class="mesa" id="rum-12"></div>
@@ -70,7 +73,7 @@
                 </div>
             </div>
 
-            <!-- ZONA LATINA I (10 columnas x 3 filas) -->
+            <!-- ZONA LATINA I -->
             <div class="zona-latina1-box">
                 <span class="titulo-zona">LATINA I</span>
                 <div class="grid-latina1">
@@ -81,6 +84,47 @@
             </div>
 
         </div>
+
+        <!-- Botón para Confirmar Mesas Seleccionadas -->
+        <div class="acciones-reserva" style="text-align: center; margin-top: 30px;">
+            <button id="btn-confirmar-mesas" style="background-color: #ffcc00; color: #000; font-weight: bold; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">Confirmar mesas</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal / Formulario de Datos del Cliente -->
+<div id="modal-formulario" class="modal oculto" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-contenido" style="background: #1a1a1a; padding: 30px; border-radius: 12px; width: 90%; max-width: 450px; color: white;">
+        <h2 style="margin-bottom: 20px; text-align: center;">Completa tus datos</h2>
+        <form id="form-datos-cliente">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Nombre:</label>
+                <input type="text" id="nombre" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #444; background: #2a2a2a; color: white;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Apellido:</label>
+                <input type="text" id="apellido" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #444; background: #2a2a2a; color: white;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Cédula:</label>
+                <input type="text" id="cedula" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #444; background: #2a2a2a; color: white;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Número de Teléfono:</label>
+                <input type="tel" id="telefono" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #444; background: #2a2a2a; color: white;">
+            </div>
+
+            <!-- Resumen de ID / Fecha -->
+            <div style="background: #252525; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 14px;">
+                <p><strong>Mesa(s):</strong> <span id="txt-mesas-elegidas" style="color: #ffcc00;">Ninguna</span></p>
+                <p><strong>Fecha:</strong> <span id="txt-fecha-elegida" style="color: #ffcc00;">-</span></p>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 10px;">
+                <button type="button" id="btn-cerrar-modal" style="background: #444; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; flex: 1;">Cancelar</button>
+                <button type="submit" style="background: #25D366; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; flex: 1;">Enviar a WhatsApp</button>
+            </div>
+        </form>
     </div>
 </div>
 
