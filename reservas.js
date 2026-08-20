@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
                              `📱 *Teléfono:* ${telefono}`;
 
             // Reemplaza con el número real de WhatsApp de La Hielera (código de país + número, sin símbolos)
-            const numeroWhatsApp = "584120000000"; 
+            const numeroWhatsApp = "584242191088"; 
 
             modal.style.display = "none";
             window.open(`https://wa.me/${numeroWhatsApp}?text=${textoWsp}`, "_blank");
