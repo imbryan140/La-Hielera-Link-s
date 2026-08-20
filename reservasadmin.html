@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas - La Hielera</title>
+    <title>Admin - Reservas La Hielera</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reservas.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="main-viewport">
+<!-- CAPA DE LOGIN (Pantalla completa) -->
+<div id="login-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f0f0f; display: flex; justify-content: center; align-items: center; z-index: 9999;">
+    <div style="background: #1a1a1a; padding: 40px; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #333;">
+        <h2 style="color: white; margin-bottom: 25px; font-weight: 700;">PANEL ADMIN</h2>
+        <form id="form-login">
+            <div style="margin-bottom: 20px; text-align: left;">
+                <label style="color: #aaa; display: block; margin-bottom: 8px; font-size: 14px;">Contraseña de acceso:</label>
+                <input type="password" id="password-admin" required style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #444; background: #2a2a2a; color: white; font-size: 16px; outline: none;">
+            </div>
+            <button type="submit" style="width: 100%; background: #ffcc00; color: #000; font-weight: bold; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; transition: background 0.2s;">Ingresar</button>
+            <p id="error-login" style="color: #ff4d4d; margin-top: 15px; font-size: 14px; display: none;">Contraseña incorrecta</p>
+        </form>
+    </div>
+</div>
+
+<!-- CONTENEDOR PRINCIPAL DEL PANEL (Oculto hasta hacer login) -->
+<div class="main-viewport" id="admin-content" style="display: none;">
     <div class="reservas-container">
-        <!-- Header / Leyenda -->
+        
+        <!-- Selector de Fecha para el Admin (para que también pueda revisar/administrar días específicos) -->
+        <div class="selector-fecha-container" style="text-align: center; margin-bottom: 20px;">
+            <label for="fecha-admin" style="color: white; font-weight: bold; margin-right: 10px;">Gestionando fecha:</label>
+            <input type="date" id="fecha-admin" style="padding: 8px 12px; border-radius: 5px; border: none; font-family: 'Poppins', sans-serif;">
+        </div>
+
         <header class="reservas-header">
-            <h1>RESERVAS</h1>
+            <h1>PANEL ADMINISTRADOR</h1>
             <div class="leyenda">
                 <span class="badge libre">Libre</span>
                 <span class="badge pendiente">Pendiente</span>
@@ -22,31 +44,24 @@
             </div>
         </header>
 
-        <!-- Lienzo del Croquis -->
+        <!-- Plano de mesas (Mismo croquis) -->
         <div class="plano-hielera">
-            
-            <!-- ZONA VIP & RUMBERA (Fila Superior) -->
+            <!-- Fila Superior (VIP y Rumbera) -->
             <div class="fila-superior">
-                <!-- ZONA VIP (3 columnas: 4 izq, 4 centro, 9 der) -->
                 <div class="zona-vip-box">
                     <span class="titulo-zona">VIP</span>
                     <div class="grid-vip">
-                        <!-- Columna Izquierda (4 mesas) -->
                         <div class="mesa" id="vip-l1"></div><div class="mesa" id="vip-l2"></div><div class="mesa" id="vip-l3"></div><div class="mesa" id="vip-l4"></div>
-                        <!-- Columna Centro (4 mesas) -->
                         <div class="mesa" id="vip-c1"></div><div class="mesa" id="vip-c2"></div><div class="mesa" id="vip-c3"></div><div class="mesa" id="vip-c4"></div>
-                        <!-- Columna Derecha (9 mesas) -->
                         <div class="mesa" id="vip-r1"></div><div class="mesa" id="vip-r2"></div><div class="mesa" id="vip-r3"></div>
                         <div class="mesa" id="vip-r4"></div><div class="mesa" id="vip-r5"></div><div class="mesa" id="vip-r6"></div>
                         <div class="mesa" id="vip-r7"></div><div class="mesa" id="vip-r8"></div><div class="mesa" id="vip-r9"></div>
                     </div>
                 </div>
 
-                <!-- ZONA RUMBERA -->
                 <div class="zona-rumbera-box">
                     <span class="titulo-zona">RUMBERA</span>
                     <div class="grid-rumbera">
-                        <!-- 4 columnas x 9 filas = 36 mesas -->
                         <div class="mesa" id="rum-1"></div><div class="mesa" id="rum-2"></div><div class="mesa" id="rum-3"></div><div class="mesa" id="rum-4"></div>
                         <div class="mesa" id="rum-5"></div><div class="mesa" id="rum-6"></div><div class="mesa" id="rum-7"></div><div class="mesa" id="rum-8"></div>
                         <div class="mesa" id="rum-9"></div><div class="mesa" id="rum-10"></div><div class="mesa" id="rum-11"></div><div class="mesa" id="rum-12"></div>
@@ -60,7 +75,7 @@
                 </div>
             </div>
 
-            <!-- ZONA LATINA II -->
+            <!-- Zona Latina II -->
             <div class="zona-latina2-box">
                 <span class="titulo-zona">LATINA II</span>
                 <div class="grid-latina2">
@@ -70,7 +85,7 @@
                 </div>
             </div>
 
-            <!-- ZONA LATINA I (10 columnas x 3 filas) -->
+            <!-- Zona Latina I -->
             <div class="zona-latina1-box">
                 <span class="titulo-zona">LATINA I</span>
                 <div class="grid-latina1">
@@ -84,8 +99,6 @@
     </div>
 </div>
 
-<script type="module" src="reservas.js"></script>
+<script type="module" src="admin.js"></script>
 </body>
 </html>
-<!-- Al final de tu nuevo reservasadmin.html -->
-<script type="module" src="admin.js"></script>
