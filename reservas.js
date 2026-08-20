@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCZ196SwJndBenHpiIEQXEj4a1ifi2rp8U",
@@ -24,64 +24,56 @@ document.addEventListener("DOMContentLoaded", () => {
     const txtMesasElegidas = document.getElementById("txt-mesas-elegidas");
     const txtFechaElegida = document.getElementById("txt-fecha-elegida");
 
-    // Asignar por defecto la fecha de hoy
     const hoy = new Date().toISOString().split("T")[0];
     inputFecha.value = hoy;
     let fechaSeleccionada = hoy;
-
-    // Obtener la referencia del documento en Firebase basado en la fecha seleccionada
-    // Usaremos una colección "reservas_fechas" con un documento por cada día (ej: "2026-08-12")
     let unsubscribeSnapshot = null;
 
     function cargarCroquisPorFecha(fecha) {
         const docRef = doc(db, "reservas_fechas", fecha);
 
-        // Cancelar el listener anterior si existía para evitar solapamientos
         if (unsubscribeSnapshot) unsubscribeSnapshot();
 
-        // Escuchar cambios en tiempo real para esta fecha
         unsubscribeSnapshot = onSnapshot(docRef, (docSnap) => {
             const data = docSnap.exists() ? docSnap.data() : {};
             
             mesas.forEach(mesa => {
                 const estado = data[mesa.id]; // "pendiente" o "confirmada"
                 
-                // Si la mesa no está seleccionada localmente de forma temporal, pintarla según Firebase
-                if (!mesa.classList.contains("seleccion-temporal")) {
-                    mesa.classList.remove("pendiente", "confirmada");
-                    if (estado) {
-                        mesa.classList.add(estado);
-                    }
+                mesa.classList.remove("pendiente", "confirmada", "seleccion-temporal");
+                if (estado) {
+                    mesa.classList.add(estado);
                 }
             });
         });
     }
 
-    // Cargar al iniciar
     cargarCroquisPorFecha(fechaSeleccionada);
 
-    // Cambiar de fecha en el calendario
     inputFecha.addEventListener("change", (e) => {
         fechaSeleccionada = e.target.value;
-        // Limpiar selecciones temporales al cambiar de fecha
-        mesas.forEach(m => m.classList.remove("seleccion-temporal", "pendiente"));
         cargarCroquisPorFecha(fechaSeleccionada);
     });
 
     // Manejar clics en las mesas (Selección del cliente)
     mesas.forEach(mesa => {
         mesa.addEventListener("click", () => {
-            // Si ya está confirmada (roja) o pendiente en Firebase, el cliente no puede tocarla
+            // Si ya está confirmada (roja) u ocupada, o si ya está pendiente en Firebase, el cliente no puede modificarla libremente
             if (mesa.classList.contains("confirmada") || mesa.classList.contains("ocupada")) {
                 alert("Esta mesa ya está ocupada o reservada.");
                 return;
             }
 
-            // Alternar selección temporal del cliente (amarillo local)
+            if (mesa.classList.contains("pendiente")) {
+                alert("Esta mesa ya fue seleccionada o enviada a proceso de pago. Si deseas cambiarla, consulta con el administrador.");
+                return;
+            }
+
+            // Alternar selección temporal antes de confirmar
             if (mesa.classList.contains("seleccion-temporal")) {
-                mesa.classList.remove("seleccion-temporal", "pendiente");
+                mesa.classList.remove("seleccion-temporal");
             } else {
-                mesa.classList.add("seleccion-temporal", "pendiente");
+                mesa.classList.add("seleccion-temporal");
             }
         });
     });
@@ -102,12 +94,11 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "flex";
     });
 
-    // Cerrar modal
     btnCerrarModal.addEventListener("click", () => {
         modal.style.display = "none";
     });
 
-    // Enviar formulario y redirigir a WhatsApp
+    // Enviar formulario, bloquear en Firebase y redirigir a WhatsApp
     formCliente.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -122,25 +113,23 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
             
-            // Construir objeto de actualización para bloquear las mesas como "pendiente" en Firebase
             const actualizacion = {};
             idsMesas.forEach(idMesa => {
                 actualizacion[idMesa] = "pendiente";
             });
 
-            // Guardar en Firestore
+            // Guardar en Firestore como pendiente (bloqueando la mesa)
             await setDoc(docRef, actualizacion, { merge: true });
 
-            // Armar mensaje de WhatsApp
-            const textoWsp = `*NUEVA SOLICITUD DE RESERVA*%0A` +
-                             `📅 *Fecha:* ${fechaSeleccionada}%0A` +
-                             `🪑 *Mesa(s):* ${idsMesas.join(", ").toUpperCase()}%0A` +
-                             `👤 *Cliente:* ${nombre} ${apellido}%0A` +
-                             `🆔 *Cédula:* ${cedula}%0A` +
-                             `📱 *Teléfono:* ${telefono}`;
+            // Mensaje para WhatsApp
+            const textoWsp = `📅 NUEVA SOLICITUD DE RESERVA%0A` +
+                             `🗓️ Fecha: ${fechaSeleccionada}%0A` +
+                             `🪑 Mesa(s): ${idsMesas.join(", ").toUpperCase()}%0A` +
+                             `👤 Cliente: ${nombre} ${apellido}%0A` +
+                             `🆔 Cédula: ${cedula}%0A` +
+                             `📱 Teléfono: ${telefono}`;
 
-            // Reemplaza con el número real de WhatsApp de La Hielera (código de país + número, sin símbolos)
-            const numeroWhatsApp = "584242191088"; 
+            const numeroWhatsApp = "584242191088"; // Tu número registrado en la captura
 
             modal.style.display = "none";
             window.open(`https://wa.me/${numeroWhatsApp}?text=${textoWsp}`, "_blank");
