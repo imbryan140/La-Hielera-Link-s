@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - La Hielera</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reservas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="main-viewport">
+    <div class="reservas-container">
+        <!-- Header / Leyenda -->
+        <header class="reservas-header">
+            <h1>RESERVAS</h1>
+            <div class="leyenda">
+                <span class="badge libre">Libre</span>
+                <span class="badge pendiente">Pendiente</span>
+                <span class="badge confirmada">Ocupada</span>
+            </div>
+        </header>
+
+        <!-- Lienzo del Croquis -->
+        <div class="plano-hielera">
+            
+            <!-- ZONA VIP & RUMBERA (Fila Superior) -->
+            <div class="fila-superior">
+                <!-- ZONA VIP (3 columnas: 4 izq, 4 centro, 9 der) -->
+                <div class="zona-vip-box">
+                    <span class="titulo-zona">VIP</span>
+                    <div class="grid-vip">
+                        <!-- Columna Izquierda (4 mesas) -->
+                        <div class="mesa" id="vip-l1"></div><div class="mesa" id="vip-l2"></div><div class="mesa" id="vip-l3"></div><div class="mesa" id="vip-l4"></div>
+                        <!-- Columna Centro (4 mesas) -->
+                        <div class="mesa" id="vip-c1"></div><div class="mesa" id="vip-c2"></div><div class="mesa" id="vip-c3"></div><div class="mesa" id="vip-c4"></div>
+                        <!-- Columna Derecha (9 mesas) -->
+                        <div class="mesa" id="vip-r1"></div><div class="mesa" id="vip-r2"></div><div class="mesa" id="vip-r3"></div>
+                        <div class="mesa" id="vip-r4"></div><div class="mesa" id="vip-r5"></div><div class="mesa" id="vip-r6"></div>
+                        <div class="mesa" id="vip-r7"></div><div class="mesa" id="vip-r8"></div><div class="mesa" id="vip-r9"></div>
+                    </div>
+                </div>
+
+                <!-- ZONA RUMBERA -->
+                <div class="zona-rumbera-box">
+                    <span class="titulo-zona">RUMBERA</span>
+                    <div class="grid-rumbera">
+                        <!-- 4 columnas x 9 filas = 36 mesas -->
+                        <div class="mesa" id="rum-1"></div><div class="mesa" id="rum-2"></div><div class="mesa" id="rum-3"></div><div class="mesa" id="rum-4"></div>
+                        <div class="mesa" id="rum-5"></div><div class="mesa" id="rum-6"></div><div class="mesa" id="rum-7"></div><div class="mesa" id="rum-8"></div>
+                        <div class="mesa" id="rum-9"></div><div class="mesa" id="rum-10"></div><div class="mesa" id="rum-11"></div><div class="mesa" id="rum-12"></div>
+                        <div class="mesa" id="rum-13"></div><div class="mesa" id="rum-14"></div><div class="mesa" id="rum-15"></div><div class="mesa" id="rum-16"></div>
+                        <div class="mesa" id="rum-17"></div><div class="mesa" id="rum-18"></div><div class="mesa" id="rum-19"></div><div class="mesa" id="rum-20"></div>
+                        <div class="mesa" id="rum-21"></div><div class="mesa" id="rum-22"></div><div class="mesa" id="rum-23"></div><div class="mesa" id="rum-24"></div>
+                        <div class="mesa" id="rum-25"></div><div class="mesa" id="rum-26"></div><div class="mesa" id="rum-27"></div><div class="mesa" id="rum-28"></div>
+                        <div class="mesa" id="rum-29"></div><div class="mesa" id="rum-30"></div><div class="mesa" id="rum-31"></div><div class="mesa" id="rum-32"></div>
+                        <div class="mesa" id="rum-33"></div><div class="mesa" id="rum-34"></div><div class="mesa" id="rum-35"></div><div class="mesa" id="rum-36"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZONA LATINA II -->
+            <div class="zona-latina2-box">
+                <span class="titulo-zona">LATINA II</span>
+                <div class="grid-latina2">
+                    <div class="mesa" id="lat2-1"></div><div class="mesa" id="lat2-2"></div><div class="mesa" id="lat2-3"></div>
+                    <div class="mesa" id="lat2-4"></div><div class="mesa" id="lat2-5"></div><div class="mesa" id="lat2-6"></div>
+                    <div class="mesa" id="lat2-7"></div><div class="mesa" id="lat2-8"></div><div class="mesa" id="lat2-9"></div>
+                </div>
+            </div>
+
+            <!-- ZONA LATINA I (10 columnas x 3 filas) -->
+            <div class="zona-latina1-box">
+                <span class="titulo-zona">LATINA I</span>
+                <div class="grid-latina1">
+                    <div class="mesa" id="lat1-1"></div><div class="mesa" id="lat1-2"></div><div class="mesa" id="lat1-3"></div><div class="mesa" id="lat1-4"></div><div class="mesa" id="lat1-5"></div><div class="mesa" id="lat1-6"></div><div class="mesa" id="lat1-7"></div><div class="mesa" id="lat1-8"></div><div class="mesa" id="lat1-9"></div><div class="mesa" id="lat1-10"></div>
+                    <div class="mesa" id="lat1-11"></div><div class="mesa" id="lat1-12"></div><div class="mesa" id="lat1-13"></div><div class="mesa" id="lat1-14"></div><div class="mesa" id="lat1-15"></div><div class="mesa" id="lat1-16"></div><div class="mesa" id="lat1-17"></div><div class="mesa" id="lat1-18"></div><div class="mesa" id="lat1-19"></div><div class="mesa" id="lat1-20"></div>
+                    <div class="mesa" id="lat1-21"></div><div class="mesa" id="lat1-22"></div><div class="mesa" id="lat1-23"></div><div class="mesa" id="lat1-24"></div><div class="mesa" id="lat1-25"></div><div class="mesa" id="lat1-26"></div><div class="mesa" id="lat1-27"></div><div class="mesa" id="lat1-28"></div><div class="mesa" id="lat1-29"></div><div class="mesa" id="lat1-30"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="module" src="reservas.js"></script>
+</body>
+</html>
+<!-- Al final de tu nuevo reservasadmin.html -->
+<script type="module" src="admin.js"></script>
