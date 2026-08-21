@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCZ196SwJndBenHpiIEQXEj4a1ifi2rp8U",
@@ -24,10 +24,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputFechaAdmin = document.getElementById("fecha-admin");
     const mesas = document.querySelectorAll(".plano-hielera .mesa:not(.vacio)");
 
-    // CONTRASEÑA DEL ADMIN (Puedes cambiarla aquí cuando quieras)
+    // Elementos del Modal Admin
+    const modalAdminInfo = document.getElementById("modal-admin-info");
+    const adminModalTitulo = document.getElementById("admin-modal-titulo");
+    const adminModalContenido = document.getElementById("admin-modal-contenido");
+    const btnAdminConfirmar = document.getElementById("btn-admin-confirmar");
+    const btnAdminLiberar = document.getElementById("btn-admin-liberar");
+    const btnAdminCerrar = document.getElementById("btn-admin-cerrar");
+
+    let mesaActivaId = null;
+    let fechaSeleccionada = "";
+
+    // CONTRASEÑA DEL ADMIN
     const CLAVE_SECRETA = "hielera2026";
 
-    // Manejar el evento de inicio de sesión
     formLogin.addEventListener("submit", (e) => {
         e.preventDefault();
         if (inputPass.value === CLAVE_SECRETA) {
@@ -43,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function inicializarPanelAdmin() {
         const hoy = new Date().toISOString().split("T")[0];
         inputFechaAdmin.value = hoy;
-        let fechaSeleccionada = hoy;
+        fechaSeleccionada = hoy;
         let unsubscribeSnapshot = null;
 
         function cargarCroquisAdmin(fecha) {
@@ -71,35 +81,82 @@ document.addEventListener("DOMContentLoaded", () => {
             cargarCroquisAdmin(fechaSeleccionada);
         });
 
-        // Lógica del Administrador al hacer clic en las mesas para cambiar estados
+        // Clic en mesa abre el modal con la información guardada
         mesas.forEach(mesa => {
             mesa.addEventListener("click", async () => {
-                const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
-                let nuevoEstado = "";
-
-                // Ciclo: Libre -> pendiente (amarillo) -> confirmada (rojo) -> Libre
+                mesaActivaId = mesa.id;
+                const numeroMesa = mesa.textContent.trim();
+                adminModalTitulo.textContent = `Mesa ${numeroMesa}`;
+                
                 if (!mesa.classList.contains("pendiente") && !mesa.classList.contains("confirmada")) {
-                    nuevoEstado = "pendiente";
-                } else if (mesa.classList.contains("pendiente")) {
-                    nuevoEstado = "confirmada"; // Pago confirmado (Rojo)
+                    adminModalContenido.innerHTML = `<p style="color: #9ca3af;">Esta mesa se encuentra <strong>Libre</strong>.</p>`;
+                    btnAdminConfirmar.style.display = "none";
+                    btnAdminLiberar.style.display = "none";
                 } else {
-                    nuevoEstado = ""; // Libera la mesa por completo
+                    adminModalContenido.innerHTML = `<p>Cargando información del cliente...</p>`;
+                    btnAdminConfirmar.style.display = "block";
+                    btnAdminLiberar.style.display = "block";
+
+                    try {
+                        const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
+                        const docSnap = await getDoc(docRef);
+
+                        if (docSnap.exists()) {
+                            const data = docSnap.data();
+                            // Buscamos si hay datos guardados para el cliente de esta mesa
+                            const cliente = data[`cliente_${mesaActivaId}`] || data.cliente || null;
+
+                            if (cliente) {
+                                adminModalContenido.innerHTML = `
+                                    <p><strong>Cliente:</strong> ${cliente.nombre || ''} ${cliente.apellido || ''}</p>
+                                    <p><strong>Cédula:</strong> ${cliente.cedula || 'No especificada'}</p>
+                                    <p><strong>Teléfono:</strong> ${cliente.telefono || 'No especificado'}</p>
+                                    <p><strong>Estado actual:</strong> <span style="text-transform: uppercase; color: ${mesa.classList.contains('confirmada') ? '#10b981' : '#f59e0b'};">${mesa.classList.contains('confirmada') ? 'Confirmada / Ocupada' : 'Pendiente'}</span></p>
+                                `;
+                            } else {
+                                adminModalContenido.innerHTML = `<p style="color: #f59e0b;">Mesa reservada externamente o sin datos de cliente detallados.</p>`;
+                            }
+                        }
+                    } catch (error) {
+                        console.error("Error al cargar datos del cliente:", error);
+                        adminModalContenido.innerHTML = `<p style="color: #ef4444;">Error al obtener la información.</p>`;
+                    }
                 }
 
-                // Cambio visual inmediato
-                mesa.classList.remove("pendiente", "confirmada");
-                if (nuevoEstado) {
-                    mesa.classList.add(nuevoEstado);
-                }
-
-                try {
-                    await setDoc(docRef, {
-                        [mesa.id]: nuevoEstado
-                    }, { merge: true });
-                } catch (error) {
-                    console.error("Error al actualizar desde el admin:", error);
-                }
+                modalAdminInfo.style.display = "flex";
             });
+        });
+
+        // Botón Confirmar desde el modal
+        btnAdminConfirmar.addEventListener("click", async () => {
+            if (!mesaActivaId) return;
+            try {
+                const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
+                await setDoc(docRef, { [mesaActivaId]: "confirmada" }, { merge: true });
+                modalAdminInfo.style.display = "none";
+            } catch (error) {
+                console.error("Error al confirmar mesa:", error);
+            }
+        });
+
+        // Botón Liberar desde el modal
+        btnAdminLiberar.addEventListener("click", async () => {
+            if (!mesaActivaId) return;
+            try {
+                const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
+                await setDoc(docRef, { 
+                    [mesaActivaId]: "",
+                    [`cliente_${mesaActivaId}`]: null
+                }, { merge: true });
+                modalAdminInfo.style.display = "none";
+            } catch (error) {
+                console.error("Error al liberar mesa:", error);
+            }
+        });
+
+        // Cerrar modal
+        btnAdminCerrar.addEventListener("click", () => {
+            modalAdminInfo.style.display = "none";
         });
     }
 });
