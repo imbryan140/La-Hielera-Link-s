@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 m.classList.add("pendiente");
             });
 
-            const urlWsp = `https://wa.me/584242191088?text=${textoWsp}`;
+            const urlWsp = `https://wa.me/584128151306?text=${textoWsp}`;
 
             // Solución anti-bloqueo para iPhone: Creamos dinámicamente un botón flotante o de alerta clara para ir a WhatsApp
             let contenedorWsp = document.getElementById("alerta-whatsapp-ios");
