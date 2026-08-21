@@ -40,9 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
             mesas.forEach(mesa => {
                 const estado = data[mesa.id]; // "pendiente" o "confirmada"
                 
+                // Limpiamos los estados visuales y aplicamos lo que diga Firebase
                 mesa.classList.remove("pendiente", "confirmada", "seleccion-temporal");
                 if (estado) {
-                    mesa.classList.add(estado);
+                    mesa.classList.add(estado); // Se pinta de amarillo (pendiente) o rojo (confirmada) según el admin o la reserva previa
                 }
             });
         });
@@ -58,18 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Manejar clics en las mesas (Selección del cliente)
     mesas.forEach(mesa => {
         mesa.addEventListener("click", () => {
-            // Si ya está confirmada (roja) u ocupada, o si ya está pendiente en Firebase, el cliente no puede modificarla libremente
-            if (mesa.classList.contains("confirmada") || mesa.classList.contains("ocupada")) {
-                alert("Esta mesa ya está ocupada o reservada.");
+            // REGLA: Si la mesa ya tiene cualquier estado en Firebase (pendiente o confirmada), el cliente NO LA PUEDE TOCAR
+            if (mesa.classList.contains("pendiente") || mesa.classList.contains("confirmada") || mesa.classList.contains("ocupada")) {
+                alert("Esta mesa ya está reservada, en proceso o no disponible.");
                 return;
             }
 
-            if (mesa.classList.contains("pendiente")) {
-                alert("Esta mesa ya fue seleccionada o enviada a proceso de pago. Si deseas cambiarla, consulta con el administrador.");
-                return;
-            }
-
-            // Alternar selección temporal antes de confirmar
+            // Si está libre (blanca), el cliente puede seleccionarla o deseleccionarla temporalmente antes de confirmar
             if (mesa.classList.contains("seleccion-temporal")) {
                 mesa.classList.remove("seleccion-temporal");
             } else {
@@ -83,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
         
         if (mesasSeleccionadas.length === 0) {
-            alert("Por favor, selecciona al menos una mesa en el plano.");
+            alert("Por favor, selecciona al menos una mesa libre en el plano.");
             return;
         }
 
@@ -98,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
     });
 
-    // Enviar formulario, bloquear en Firebase y redirigir a WhatsApp
+    // Enviar formulario, bloquear en Firebase como "pendiente" y redirigir a WhatsApp
     formCliente.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -115,23 +111,25 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const actualizacion = {};
             idsMesas.forEach(idMesa => {
-                actualizacion[idMesa] = "pendiente";
+                actualizacion[idMesa] = "pendiente"; // Se guardan como pendiente en Firebase
             });
 
-            // Guardar en Firestore como pendiente (bloqueando la mesa)
             await setDoc(docRef, actualizacion, { merge: true });
 
             // Mensaje para WhatsApp
-            const textoWsp = `📅 NUEVA SOLICITUD DE RESERVA%0A` +
-                             `🗓️ Fecha: ${fechaSeleccionada}%0A` +
-                             `🪑 Mesa(s): ${idsMesas.join(", ").toUpperCase()}%0A` +
-                             `👤 Cliente: ${nombre} ${apellido}%0A` +
-                             `🆔 Cédula: ${cedula}%0A` +
-                             `📱 Teléfono: ${telefono}`;
+            const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
+                             `Fecha: ${fechaSeleccionada}%0A` +
+                             `Mesa(s): ${idsMesas.join(", ").toUpperCase()}%0A` +
+                             `Cliente: ${nombre} ${apellido}%0A` +
+                             `Cédula: ${cedula}%0A` +
+                             `Teléfono: ${telefono}`;
 
-            const numeroWhatsApp = "584242191088"; // Tu número registrado en la captura
+            const numeroWhatsApp = "584242191088"; 
 
             modal.style.display = "none";
+            // Limpiar selección temporal local
+            mesasSeleccionadas.forEach(m => m.classList.remove("seleccion-temporal"));
+
             window.open(`https://wa.me/${numeroWhatsApp}?text=${textoWsp}`, "_blank");
 
         } catch (error) {
