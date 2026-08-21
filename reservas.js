@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarCroquisPorFecha(fechaSeleccionada);
     });
 
-    // PRUEBA DIRECTA DE CLICS
     mesas.forEach(mesa => {
         mesa.addEventListener("click", () => {
             console.log("Hiciste clic en la mesa con ID:", mesa.id);
@@ -70,10 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (mesa.classList.contains("seleccion-temporal")) {
                 mesa.classList.remove("seleccion-temporal");
-                console.log("Mesa deseleccionada temporalmente");
             } else {
                 mesa.classList.add("seleccion-temporal");
-                console.log("Mesa seleccionada temporalmente");
             }
         });
     });
@@ -86,7 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Muestra los números visibles de las mesas en el modal de confirmación
         const numerosMesas = mesasSeleccionadas.map(m => m.textContent.trim()).join(", ");
         txtMesasElegidas.textContent = numerosMesas;
         txtFechaElegida.textContent = fechaSeleccionada;
@@ -114,13 +110,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
             
             const actualizacion = {};
+            const datosCliente = {
+                nombre,
+                apellido,
+                cedula,
+                telefono,
+                mesasReservadas: numerosMesas.join(", ")
+            };
+
+            // Marcamos las mesas como pendientes y guardamos la info del cliente para cada mesa seleccionada
             idsMesas.forEach(idMesa => {
                 actualizacion[idMesa] = "pendiente";
+                actualizacion[`cliente_${idMesa}`] = datosCliente;
             });
 
             await setDoc(docRef, actualizacion, { merge: true });
 
-            // El mensaje de WhatsApp utiliza los números reales de las mesas
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
                              `Fecha: ${fechaSeleccionada}%0A` +
                              `Mesa(s): ${numerosMesas.join(", ")}%0A` +
