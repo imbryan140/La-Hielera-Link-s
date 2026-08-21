@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             const cliente = data[`cliente_${mesaActivaId}`] || data.cliente || null;
 
                             if (cliente) {
-                                // Si seleccionó varias mesas, mostramos el grupo completo en el título
                                 if (cliente.mesasReservadas && adminModalTitulo) {
                                     adminModalTitulo.textContent = `Mesas Reservadas: ${cliente.mesasReservadas}`;
                                 }
