@@ -16,7 +16,7 @@ const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", () => {
     const inputFecha = document.getElementById("fecha-reserva");
-    const mesas = document.querySelectorAll(".plano-hielera .mesa:not(.vacio)");
+    const mesas = document.querySelectorAll(".mesa");
     const btnConfirmar = document.getElementById("btn-confirmar-mesas");
     const modal = document.getElementById("modal-formulario");
     const btnCerrarModal = document.getElementById("btn-cerrar-modal");
@@ -27,8 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const hoy = new Date().toISOString().split("T")[0];
     inputFecha.value = hoy;
     let fechaSeleccionada = hoy;
-
-    console.log("Total de mesas encontradas en el plano:", mesas.length);
 
     async function cargarCroquisPorFecha(fecha) {
         const docRef = doc(db, "reservas_fechas", fecha);
@@ -60,32 +58,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     mesas.forEach(mesa => {
         mesa.addEventListener("click", () => {
-            console.log("Hiciste clic en la mesa con ID:", mesa.id);
-
             if (mesa.classList.contains("confirmada") || mesa.classList.contains("pendiente")) {
                 alert("Esta mesa ya está reservada o en proceso.");
                 return;
             }
-
-            if (mesa.classList.contains("seleccion-temporal")) {
-                mesa.classList.remove("seleccion-temporal");
-            } else {
-                mesa.classList.add("seleccion-temporal");
-            }
+            mesa.classList.toggle("seleccion-temporal");
         });
     });
 
     btnConfirmar.addEventListener("click", () => {
-        const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
+        const seleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
         
-        if (mesasSeleccionadas.length === 0) {
-            alert("Por favor, selecciona al menos una mesa en el plano.");
+        if (seleccionadas.length === 0) {
+            alert("Por favor, selecciona al menos una mesa.");
             return;
         }
 
-        // Usamos el ID exacto de cada mesa seleccionada
-        const idsMesas = mesasSeleccionadas.map(m => m.id);
-        txtMesasElegidas.textContent = idsMesas.join(", ");
+        // Extraemos solo el ID de cada mesa seleccionada
+        const ids = seleccionadas.map(m => m.id);
+        txtMesasElegidas.textContent = ids.join(", ");
         txtFechaElegida.textContent = fechaSeleccionada;
 
         modal.style.display = "flex";
@@ -103,48 +94,38 @@ document.addEventListener("DOMContentLoaded", () => {
         const cedula = document.getElementById("cedula").value.trim();
         const telefono = document.getElementById("telefono").value.trim();
 
-        const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
-        const idsMesas = mesasSeleccionadas.map(m => m.id);
+        const seleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
+        const ids = seleccionadas.map(m => m.id);
 
         try {
             const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
-            
             const actualizacion = {};
-            const datosCliente = {
-                nombre,
-                apellido,
-                cedula,
-                telefono,
-                mesasReservadas: idsMesas.join(", ")
-            };
+            const datosCliente = { nombre, apellido, cedula, telefono, mesasReservadas: ids.join(", ") };
 
-            idsMesas.forEach(idMesa => {
-                actualizacion[idMesa] = "pendiente";
-                actualizacion[`cliente_${idMesa}`] = datosCliente;
+            ids.forEach(id => {
+                actualizacion[id] = "pendiente";
+                actualizacion[`cliente_${id}`] = datosCliente;
             });
 
             await setDoc(docRef, actualizacion, { merge: true });
 
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
                              `Fecha: ${fechaSeleccionada}%0A` +
-                             `Mesa(s): ${idsMesas.join(", ")}%0A` +
+                             `Mesa(s): ${ids.join(", ")}%0A` +
                              `Cliente: ${nombre} ${apellido}%0A` +
                              `Cédula: ${cedula}%0A` +
                              `Teléfono: ${telefono}`;
 
-            const numeroWhatsApp = "584242191088"; 
-
             modal.style.display = "none";
-            mesasSeleccionadas.forEach(m => {
+            seleccionadas.forEach(m => {
                 m.classList.remove("seleccion-temporal");
                 m.classList.add("pendiente");
             });
 
-            window.open(`https://wa.me/${numeroWhatsApp}?text=${textoWsp}`, "_blank");
-
+            window.open(`https://wa.me/584242191088?text=${textoWsp}`, "_blank");
         } catch (error) {
-            console.error("Error al registrar la reserva:", error);
-            alert("Hubo un error al procesar tu reserva. Inténtalo de nuevo.");
+            console.error("Error:", error);
+            alert("Error al procesar reserva.");
         }
     });
 });
