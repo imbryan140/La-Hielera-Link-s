@@ -86,8 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const idsMesas = mesasSeleccionadas.map(m => m.id.toUpperCase()).join(", ");
-        txtMesasElegidas.textContent = idsMesas;
+        // Muestra los números visibles de las mesas en el modal de confirmación
+        const numerosMesas = mesasSeleccionadas.map(m => m.textContent.trim()).join(", ");
+        txtMesasElegidas.textContent = numerosMesas;
         txtFechaElegida.textContent = fechaSeleccionada;
 
         modal.style.display = "flex";
@@ -107,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
         const idsMesas = mesasSeleccionadas.map(m => m.id);
+        const numerosMesas = mesasSeleccionadas.map(m => m.textContent.trim());
 
         try {
             const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
@@ -118,9 +120,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             await setDoc(docRef, actualizacion, { merge: true });
 
+            // El mensaje de WhatsApp utiliza los números reales de las mesas
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
                              `Fecha: ${fechaSeleccionada}%0A` +
-                             `Mesa(s): ${idsMesas.join(", ").toUpperCase()}%0A` +
+                             `Mesa(s): ${numerosMesas.join(", ")}%0A` +
                              `Cliente: ${nombre} ${apellido}%0A` +
                              `Cédula: ${cedula}%0A` +
                              `Teléfono: ${telefono}`;
