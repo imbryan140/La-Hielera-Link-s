@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let fechaSeleccionada = hoy;
     let unsubscribeSnapshot = null;
 
-function cargarCroquisPorFecha(fecha) {
+    function cargarCroquisPorFecha(fecha) {
+        // CORREGIDO: Apunta directo a la colección de fechas
         const docRef = doc(db, "reservas_fechas", fecha);
 
         if (unsubscribeSnapshot) unsubscribeSnapshot();
@@ -40,7 +41,7 @@ function cargarCroquisPorFecha(fecha) {
             mesas.forEach(mesa => {
                 const estado = data[mesa.id]; // "pendiente" o "confirmada"
                 
-                // Si la mesa NO la tiene seleccionada el cliente temporalmente en este momento:
+                // Si el cliente no la tiene seleccionada temporalmente en este momento
                 if (!mesa.classList.contains("seleccion-temporal")) {
                     mesa.classList.remove("pendiente", "confirmada");
                     if (estado) {
@@ -55,19 +56,20 @@ function cargarCroquisPorFecha(fecha) {
 
     inputFecha.addEventListener("change", (e) => {
         fechaSeleccionada = e.target.value;
+        mesas.forEach(m => m.classList.remove("seleccion-temporal"));
         cargarCroquisPorFecha(fechaSeleccionada);
     });
 
-// Manejar clics en las mesas (Selección del cliente)
+    // Manejar clics en las mesas
     mesas.forEach(mesa => {
         mesa.addEventListener("click", () => {
-            // Si ya está confirmada (roja) o pendiente de forma fija en Firebase, el cliente no la toca
-            if (mesa.classList.contains("confirmada") || (mesa.classList.contains("pendiente") && !mesa.classList.contains("seleccion-temporal"))) {
+            // Si ya está confirmada (roja) o pendiente en Firebase, el cliente no la toca
+            if (mesa.classList.contains("confirmada") || mesa.classList.contains("pendiente")) {
                 alert("Esta mesa ya está reservada o en proceso.");
                 return;
             }
 
-            // Alternar selección temporal
+            // Alternar selección temporal (amarillo)
             if (mesa.classList.contains("seleccion-temporal")) {
                 mesa.classList.remove("seleccion-temporal");
             } else {
@@ -96,7 +98,7 @@ function cargarCroquisPorFecha(fecha) {
         modal.style.display = "none";
     });
 
-    // Enviar formulario, bloquear en Firebase como "pendiente" y redirigir a WhatsApp
+    // Enviar formulario y redirigir a WhatsApp
     formCliente.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -113,12 +115,11 @@ function cargarCroquisPorFecha(fecha) {
             
             const actualizacion = {};
             idsMesas.forEach(idMesa => {
-                actualizacion[idMesa] = "pendiente"; // Se guardan como pendiente en Firebase
+                actualizacion[idMesa] = "pendiente"; // Bloquea en Firebase para este día
             });
 
             await setDoc(docRef, actualizacion, { merge: true });
 
-            // Mensaje para WhatsApp
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
                              `Fecha: ${fechaSeleccionada}%0A` +
                              `Mesa(s): ${idsMesas.join(", ").toUpperCase()}%0A` +
@@ -129,7 +130,6 @@ function cargarCroquisPorFecha(fecha) {
             const numeroWhatsApp = "584242191088"; 
 
             modal.style.display = "none";
-            // Limpiar selección temporal local
             mesasSeleccionadas.forEach(m => m.classList.remove("seleccion-temporal"));
 
             window.open(`https://wa.me/${numeroWhatsApp}?text=${textoWsp}`, "_blank");
