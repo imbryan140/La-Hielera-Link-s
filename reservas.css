@@ -143,3 +143,18 @@ body {
     grid-template-columns: repeat(10, 1fr);
     gap: 4px;
 }
+/* Color cuando el cliente selecciona la mesa temporalmente */
+.mesa.seleccion-temporal {
+    background-color: #3b82f6 !important; /* Azul llamativo */
+    border-color: #1d4ed8 !important;
+}
+
+/* Opcional: Asegurar colores para pendientes y confirmadas si faltaban */
+.mesa.pendiente {
+    background-color: #f59e0b !important; /* Naranja */
+}
+
+.mesa.confirmada {
+    background-color: #ef4444 !important; /* Rojo */
+}
+
