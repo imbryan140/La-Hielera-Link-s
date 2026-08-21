@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCZ196SwJndBenHpiIEQXEj4a1ifi2rp8U",
@@ -27,30 +27,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const hoy = new Date().toISOString().split("T")[0];
     inputFecha.value = hoy;
     let fechaSeleccionada = hoy;
-    let unsubscribeSnapshot = null;
 
-    function cargarCroquisPorFecha(fecha) {
+    async function cargarCroquisPorFecha(fecha) {
         const docRef = doc(db, "reservas_fechas", fecha);
+        
+        // Limpiamos estados visuales previos
+        mesas.forEach(m => m.classList.remove("pendiente", "confirmada"));
 
-        if (unsubscribeSnapshot) unsubscribeSnapshot();
-
-        unsubscribeSnapshot = onSnapshot(docRef, (docSnap) => {
-            const data = docSnap.exists() ? docSnap.data() : {};
-            
-            mesas.forEach(mesa => {
-                const estado = data[mesa.id]; // "pendiente" o "confirmada"
-                
-                // Si el cliente no la tiene seleccionada temporalmente en este momento
-                if (!mesa.classList.contains("seleccion-temporal")) {
-                    mesa.classList.remove("pendiente", "confirmada");
+        try {
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                mesas.forEach(mesa => {
+                    const estado = data[mesa.id];
                     if (estado) {
                         mesa.classList.add(estado);
                     }
-                }
-            });
-        }, (error) => {
-            console.error("Error en el listener de Firebase:", error);
-        });
+                });
+            }
+        } catch (error) {
+            console.error("Error al cargar croquis:", error);
+        }
     }
 
     cargarCroquisPorFecha(fechaSeleccionada);
@@ -61,23 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarCroquisPorFecha(fechaSeleccionada);
     });
 
-    // Manejar clics en las mesas de forma directa y robusta
+    // Manejar clics en las mesas directamente
     mesas.forEach(mesa => {
-        mesa.style.cursor = "pointer"; // Asegura que visualmente indique que se puede hacer clic
-        
         mesa.addEventListener("click", () => {
-            // Si ya está ocupada, confirmada o pendiente por otro cliente, no se toca
-            if (mesa.classList.contains("confirmada") || mesa.classList.contains("ocupada")) {
-                alert("Esta mesa ya está ocupada o confirmada.");
+            // Si ya está ocupada, confirmada o pendiente, no se puede tocar
+            if (mesa.classList.contains("confirmada") || mesa.classList.contains("pendiente")) {
+                alert("Esta mesa ya está reservada o en proceso.");
                 return;
             }
 
-            if (mesa.classList.contains("pendiente") && !mesa.classList.contains("seleccion-temporal")) {
-                alert("Esta mesa ya está en proceso de reserva.");
-                return;
-            }
-
-            // Alternar selección temporal del cliente
+            // Alternar selección temporal
             if (mesa.classList.contains("seleccion-temporal")) {
                 mesa.classList.remove("seleccion-temporal");
             } else {
@@ -126,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 actualizacion[idMesa] = "pendiente";
             });
 
-            // Esto creará automáticamente el documento de la fecha si no existía
+            // Guarda en Firestore y crea el documento de la fecha si no existía
             await setDoc(docRef, actualizacion, { merge: true });
 
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
