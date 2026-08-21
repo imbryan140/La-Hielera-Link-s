@@ -154,6 +154,25 @@ body {
     background-color: #f59e0b !important; /* Naranja */
 }
 
+/* Centrar el número dentro de la caja de la mesa */
+.mesa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #111; /* Texto oscuro para mesas libres (fondo blanco) */
+    user-select: none;
+    cursor: pointer;
+}
+
+/* Cambiar texto a blanco si la mesa tiene un fondo oscuro/colorido */
+.mesa.seleccion-temporal,
+.mesa.pendiente,
+.mesa.confirmada {
+    color: #ffffff !important;
+}
+
 .mesa.confirmada {
     background-color: #ef4444 !important; /* Rojo */
 }
