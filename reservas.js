@@ -109,12 +109,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             await setDoc(docRef, actualizacion, { merge: true });
 
-            const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
-                             `Fecha: ${fechaSeleccionada}%0A` +
-                             `Mesa(s): ${ids.join(", ")}%0A` +
-                             `Cliente: ${nombre} ${apellido}%0A` +
-                             `Cédula: ${cedula}%0A` +
-                             `Teléfono: ${telefono}`;
+const textoWsp = `🔔 *NUEVA SOLICITUD DE RESERVA*%0A` +
+                             `---------------------------%0A` +
+                             `📅 Fecha: ${fechaSeleccionada}%0A` +
+                             `📍 Mesa(s): ${ids.join(", ")}%0A` +
+                             `👤 Cliente: ${nombre} ${apellido}%0A` +
+                             `🆔 Cédula: ${cedula}%0A` +
+                             `📞 Teléfono: ${telefono}%0A` +
+                             `---------------------------%0A` +
+                             `*Por favor, confirmar disponibilidad.*`;
 
             modal.style.display = "none";
             seleccionadas.forEach(m => {
