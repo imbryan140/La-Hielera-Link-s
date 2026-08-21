@@ -89,8 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
         mesas.forEach(mesa => {
             mesa.addEventListener("click", async () => {
                 mesaActivaId = mesa.id;
-                const numeroMesa = mesa.textContent.trim();
-                if (adminModalTitulo) adminModalTitulo.textContent = `Mesa ${numeroMesa}`;
+                const numeroMesaActual = mesa.textContent.trim();
+                
+                if (adminModalTitulo) adminModalTitulo.textContent = `Mesa ${numeroMesaActual}`;
                 
                 if (!mesa.classList.contains("pendiente") && !mesa.classList.contains("confirmada")) {
                     if (adminModalContenido) adminModalContenido.innerHTML = `<p style="color: #9ca3af;">Esta mesa se encuentra <strong>Libre</strong>.</p>`;
@@ -110,6 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             const cliente = data[`cliente_${mesaActivaId}`] || data.cliente || null;
 
                             if (cliente) {
+                                // Si seleccionó varias mesas, mostramos el grupo completo en el título
+                                if (cliente.mesasReservadas && adminModalTitulo) {
+                                    adminModalTitulo.textContent = `Mesas Reservadas: ${cliente.mesasReservadas}`;
+                                }
+
                                 if (adminModalContenido) {
                                     adminModalContenido.innerHTML = `
                                         <p><strong>Cliente:</strong> ${cliente.nombre || ''} ${cliente.apellido || ''}</p>
