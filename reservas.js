@@ -83,8 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const numerosMesas = mesasSeleccionadas.map(m => m.innerText.trim()).filter(t => t !== "");
-        txtMesasElegidas.textContent = numerosMesas.join(", ");
+        // Usamos el ID exacto de cada mesa seleccionada
+        const idsMesas = mesasSeleccionadas.map(m => m.id);
+        txtMesasElegidas.textContent = idsMesas.join(", ");
         txtFechaElegida.textContent = fechaSeleccionada;
 
         modal.style.display = "flex";
@@ -104,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
         const idsMesas = mesasSeleccionadas.map(m => m.id);
-        const numerosMesas = mesasSeleccionadas.map(m => m.innerText.trim()).filter(t => t !== "");
 
         try {
             const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 apellido,
                 cedula,
                 telefono,
-                mesasReservadas: numerosMesas.join(", ")
+                mesasReservadas: idsMesas.join(", ")
             };
 
             idsMesas.forEach(idMesa => {
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
                              `Fecha: ${fechaSeleccionada}%0A` +
-                             `Mesa(s): ${numerosMesas.join(", ")}%0A` +
+                             `Mesa(s): ${idsMesas.join(", ")}%0A` +
                              `Cliente: ${nombre} ${apellido}%0A` +
                              `Cédula: ${cedula}%0A` +
                              `Teléfono: ${telefono}`;
