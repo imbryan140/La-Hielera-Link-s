@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
     inputFecha.value = hoy;
     let fechaSeleccionada = hoy;
 
+    console.log("Total de mesas encontradas en el plano:", mesas.length);
+
     async function cargarCroquisPorFecha(fecha) {
         const docRef = doc(db, "reservas_fechas", fecha);
-        
-        // Limpiamos estados visuales previos
         mesas.forEach(m => m.classList.remove("pendiente", "confirmada"));
 
         try {
@@ -58,25 +58,26 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarCroquisPorFecha(fechaSeleccionada);
     });
 
-    // Manejar clics en las mesas directamente
+    // PRUEBA DIRECTA DE CLICS
     mesas.forEach(mesa => {
         mesa.addEventListener("click", () => {
-            // Si ya está ocupada, confirmada o pendiente, no se puede tocar
+            console.log("Hiciste clic en la mesa con ID:", mesa.id);
+
             if (mesa.classList.contains("confirmada") || mesa.classList.contains("pendiente")) {
                 alert("Esta mesa ya está reservada o en proceso.");
                 return;
             }
 
-            // Alternar selección temporal
             if (mesa.classList.contains("seleccion-temporal")) {
                 mesa.classList.remove("seleccion-temporal");
+                console.log("Mesa deseleccionada temporalmente");
             } else {
                 mesa.classList.add("seleccion-temporal");
+                console.log("Mesa seleccionada temporalmente");
             }
         });
     });
 
-    // Botón "Confirmar mesas" -> Abre el modal
     btnConfirmar.addEventListener("click", () => {
         const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
         
@@ -96,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
     });
 
-    // Enviar formulario, registrar en Firebase y abrir WhatsApp
     formCliente.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 actualizacion[idMesa] = "pendiente";
             });
 
-            // Guarda en Firestore y crea el documento de la fecha si no existía
             await setDoc(docRef, actualizacion, { merge: true });
 
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
