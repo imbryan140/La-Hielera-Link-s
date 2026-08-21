@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let fechaSeleccionada = hoy;
     let unsubscribeSnapshot = null;
 
-    function cargarCroquisPorFecha(fecha) {
+function cargarCroquisPorFecha(fecha) {
         const docRef = doc(db, "reservas_fechas", fecha);
 
         if (unsubscribeSnapshot) unsubscribeSnapshot();
@@ -40,10 +40,12 @@ document.addEventListener("DOMContentLoaded", () => {
             mesas.forEach(mesa => {
                 const estado = data[mesa.id]; // "pendiente" o "confirmada"
                 
-                // Limpiamos los estados visuales y aplicamos lo que diga Firebase
-                mesa.classList.remove("pendiente", "confirmada", "seleccion-temporal");
-                if (estado) {
-                    mesa.classList.add(estado); // Se pinta de amarillo (pendiente) o rojo (confirmada) según el admin o la reserva previa
+                // Si la mesa NO la tiene seleccionada el cliente temporalmente en este momento:
+                if (!mesa.classList.contains("seleccion-temporal")) {
+                    mesa.classList.remove("pendiente", "confirmada");
+                    if (estado) {
+                        mesa.classList.add(estado);
+                    }
                 }
             });
         });
@@ -56,16 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarCroquisPorFecha(fechaSeleccionada);
     });
 
-    // Manejar clics en las mesas (Selección del cliente)
+// Manejar clics en las mesas (Selección del cliente)
     mesas.forEach(mesa => {
         mesa.addEventListener("click", () => {
-            // REGLA: Si la mesa ya tiene cualquier estado en Firebase (pendiente o confirmada), el cliente NO LA PUEDE TOCAR
-            if (mesa.classList.contains("pendiente") || mesa.classList.contains("confirmada") || mesa.classList.contains("ocupada")) {
-                alert("Esta mesa ya está reservada, en proceso o no disponible.");
+            // Si ya está confirmada (roja) o pendiente de forma fija en Firebase, el cliente no la toca
+            if (mesa.classList.contains("confirmada") || (mesa.classList.contains("pendiente") && !mesa.classList.contains("seleccion-temporal"))) {
+                alert("Esta mesa ya está reservada o en proceso.");
                 return;
             }
 
-            // Si está libre (blanca), el cliente puede seleccionarla o deseleccionarla temporalmente antes de confirmar
+            // Alternar selección temporal
             if (mesa.classList.contains("seleccion-temporal")) {
                 mesa.classList.remove("seleccion-temporal");
             } else {
