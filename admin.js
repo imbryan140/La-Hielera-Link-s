@@ -38,21 +38,23 @@ document.addEventListener("DOMContentLoaded", () => {
     // CONTRASEÑA DEL ADMIN
     const CLAVE_SECRETA = "hielera2026";
 
-    formLogin.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (inputPass.value === CLAVE_SECRETA) {
-            loginOverlay.style.display = "none";
-            adminContent.style.display = "block";
-            inicializarPanelAdmin();
-        } else {
-            errorLogin.style.display = "block";
-            inputPass.value = "";
-        }
-    });
+    if (formLogin) {
+        formLogin.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (inputPass.value === CLAVE_SECRETA) {
+                if (loginOverlay) loginOverlay.style.display = "none";
+                if (adminContent) adminContent.style.display = "block";
+                inicializarPanelAdmin();
+            } else {
+                if (errorLogin) errorLogin.style.display = "block";
+                inputPass.value = "";
+            }
+        });
+    }
 
     function inicializarPanelAdmin() {
         const hoy = new Date().toISOString().split("T")[0];
-        inputFechaAdmin.value = hoy;
+        if (inputFechaAdmin) inputFechaAdmin.value = hoy;
         fechaSeleccionada = hoy;
         let unsubscribeSnapshot = null;
 
@@ -76,26 +78,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         cargarCroquisAdmin(fechaSeleccionada);
 
-        inputFechaAdmin.addEventListener("change", (e) => {
-            fechaSeleccionada = e.target.value;
-            cargarCroquisAdmin(fechaSeleccionada);
-        });
+        if (inputFechaAdmin) {
+            inputFechaAdmin.addEventListener("change", (e) => {
+                fechaSeleccionada = e.target.value;
+                cargarCroquisAdmin(fechaSeleccionada);
+            });
+        }
 
         // Clic en mesa abre el modal con la información guardada
         mesas.forEach(mesa => {
             mesa.addEventListener("click", async () => {
                 mesaActivaId = mesa.id;
                 const numeroMesa = mesa.textContent.trim();
-                adminModalTitulo.textContent = `Mesa ${numeroMesa}`;
+                if (adminModalTitulo) adminModalTitulo.textContent = `Mesa ${numeroMesa}`;
                 
                 if (!mesa.classList.contains("pendiente") && !mesa.classList.contains("confirmada")) {
-                    adminModalContenido.innerHTML = `<p style="color: #9ca3af;">Esta mesa se encuentra <strong>Libre</strong>.</p>`;
-                    btnAdminConfirmar.style.display = "none";
-                    btnAdminLiberar.style.display = "none";
+                    if (adminModalContenido) adminModalContenido.innerHTML = `<p style="color: #9ca3af;">Esta mesa se encuentra <strong>Libre</strong>.</p>`;
+                    if (btnAdminConfirmar) btnAdminConfirmar.style.display = "none";
+                    if (btnAdminLiberar) btnAdminLiberar.style.display = "none";
                 } else {
-                    adminModalContenido.innerHTML = `<p>Cargando información del cliente...</p>`;
-                    btnAdminConfirmar.style.display = "block";
-                    btnAdminLiberar.style.display = "block";
+                    if (adminModalContenido) adminModalContenido.innerHTML = `<p>Cargando información del cliente...</p>`;
+                    if (btnAdminConfirmar) btnAdminConfirmar.style.display = "block";
+                    if (btnAdminLiberar) btnAdminLiberar.style.display = "block";
 
                     try {
                         const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
@@ -103,60 +107,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         if (docSnap.exists()) {
                             const data = docSnap.data();
-                            // Buscamos si hay datos guardados para el cliente de esta mesa
                             const cliente = data[`cliente_${mesaActivaId}`] || data.cliente || null;
 
                             if (cliente) {
-                                adminModalContenido.innerHTML = `
-                                    <p><strong>Cliente:</strong> ${cliente.nombre || ''} ${cliente.apellido || ''}</p>
-                                    <p><strong>Cédula:</strong> ${cliente.cedula || 'No especificada'}</p>
-                                    <p><strong>Teléfono:</strong> ${cliente.telefono || 'No especificado'}</p>
-                                    <p><strong>Estado actual:</strong> <span style="text-transform: uppercase; color: ${mesa.classList.contains('confirmada') ? '#10b981' : '#f59e0b'};">${mesa.classList.contains('confirmada') ? 'Confirmada / Ocupada' : 'Pendiente'}</span></p>
-                                `;
+                                if (adminModalContenido) {
+                                    adminModalContenido.innerHTML = `
+                                        <p><strong>Cliente:</strong> ${cliente.nombre || ''} ${cliente.apellido || ''}</p>
+                                        <p><strong>Cédula:</strong> ${cliente.cedula || 'No especificada'}</p>
+                                        <p><strong>Teléfono:</strong> ${cliente.telefono || 'No especificado'}</p>
+                                        <p><strong>Estado actual:</strong> <span style="text-transform: uppercase; color: ${mesa.classList.contains('confirmada') ? '#10b981' : '#f59e0b'};">${mesa.classList.contains('confirmada') ? 'Confirmada / Ocupada' : 'Pendiente'}</span></p>
+                                    `;
+                                }
                             } else {
-                                adminModalContenido.innerHTML = `<p style="color: #f59e0b;">Mesa reservada externamente o sin datos de cliente detallados.</p>`;
+                                if (adminModalContenido) adminModalContenido.innerHTML = `<p style="color: #f59e0b;">Mesa reservada externamente o sin datos de cliente detallados.</p>`;
                             }
                         }
                     } catch (error) {
                         console.error("Error al cargar datos del cliente:", error);
-                        adminModalContenido.innerHTML = `<p style="color: #ef4444;">Error al obtener la información.</p>`;
+                        if (adminModalContenido) adminModalContenido.innerHTML = `<p style="color: #ef4444;">Error al obtener la información.</p>`;
                     }
                 }
 
-                modalAdminInfo.style.display = "flex";
+                if (modalAdminInfo) modalAdminInfo.style.display = "flex";
             });
         });
 
         // Botón Confirmar desde el modal
-        btnAdminConfirmar.addEventListener("click", async () => {
-            if (!mesaActivaId) return;
-            try {
-                const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
-                await setDoc(docRef, { [mesaActivaId]: "confirmada" }, { merge: true });
-                modalAdminInfo.style.display = "none";
-            } catch (error) {
-                console.error("Error al confirmar mesa:", error);
-            }
-        });
+        if (btnAdminConfirmar) {
+            btnAdminConfirmar.addEventListener("click", async () => {
+                if (!mesaActivaId) return;
+                try {
+                    const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
+                    await setDoc(docRef, { [mesaActivaId]: "confirmada" }, { merge: true });
+                    if (modalAdminInfo) modalAdminInfo.style.display = "none";
+                } catch (error) {
+                    console.error("Error al confirmar mesa:", error);
+                }
+            });
+        }
 
         // Botón Liberar desde el modal
-        btnAdminLiberar.addEventListener("click", async () => {
-            if (!mesaActivaId) return;
-            try {
-                const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
-                await setDoc(docRef, { 
-                    [mesaActivaId]: "",
-                    [`cliente_${mesaActivaId}`]: null
-                }, { merge: true });
-                modalAdminInfo.style.display = "none";
-            } catch (error) {
-                console.error("Error al liberar mesa:", error);
-            }
-        });
+        if (btnAdminLiberar) {
+            btnAdminLiberar.addEventListener("click", async () => {
+                if (!mesaActivaId) return;
+                try {
+                    const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
+                    await setDoc(docRef, { 
+                        [mesaActivaId]: "",
+                        [`cliente_${mesaActivaId}`]: null
+                    }, { merge: true });
+                    if (modalAdminInfo) modalAdminInfo.style.display = "none";
+                } catch (error) {
+                    console.error("Error al liberar mesa:", error);
+                }
+            });
+        }
 
         // Cerrar modal
-        btnAdminCerrar.addEventListener("click", () => {
-            modalAdminInfo.style.display = "none";
-        });
+        if (btnAdminCerrar) {
+            btnAdminCerrar.addEventListener("click", () => {
+                if (modalAdminInfo) modalAdminInfo.style.display = "none";
+            });
+        }
     }
 });
