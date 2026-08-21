@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let unsubscribeSnapshot = null;
 
     function cargarCroquisPorFecha(fecha) {
-        // CORREGIDO: Apunta directo a la colección de fechas
         const docRef = doc(db, "reservas_fechas", fecha);
 
         if (unsubscribeSnapshot) unsubscribeSnapshot();
@@ -49,6 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
+        }, (error) => {
+            console.error("Error en el listener de Firebase:", error);
         });
     }
 
@@ -56,20 +57,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     inputFecha.addEventListener("change", (e) => {
         fechaSeleccionada = e.target.value;
-        mesas.forEach(m => m.classList.remove("seleccion-temporal"));
+        mesas.forEach(m => m.classList.remove("seleccion-temporal", "pendiente", "confirmada"));
         cargarCroquisPorFecha(fechaSeleccionada);
     });
 
-    // Manejar clics en las mesas
+    // Manejar clics en las mesas de forma directa y robusta
     mesas.forEach(mesa => {
+        mesa.style.cursor = "pointer"; // Asegura que visualmente indique que se puede hacer clic
+        
         mesa.addEventListener("click", () => {
-            // Si ya está confirmada (roja) o pendiente en Firebase, el cliente no la toca
-            if (mesa.classList.contains("confirmada") || mesa.classList.contains("pendiente")) {
-                alert("Esta mesa ya está reservada o en proceso.");
+            // Si ya está ocupada, confirmada o pendiente por otro cliente, no se toca
+            if (mesa.classList.contains("confirmada") || mesa.classList.contains("ocupada")) {
+                alert("Esta mesa ya está ocupada o confirmada.");
                 return;
             }
 
-            // Alternar selección temporal (amarillo)
+            if (mesa.classList.contains("pendiente") && !mesa.classList.contains("seleccion-temporal")) {
+                alert("Esta mesa ya está en proceso de reserva.");
+                return;
+            }
+
+            // Alternar selección temporal del cliente
             if (mesa.classList.contains("seleccion-temporal")) {
                 mesa.classList.remove("seleccion-temporal");
             } else {
@@ -83,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
         
         if (mesasSeleccionadas.length === 0) {
-            alert("Por favor, selecciona al menos una mesa libre en el plano.");
+            alert("Por favor, selecciona al menos una mesa en el plano.");
             return;
         }
 
@@ -98,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
     });
 
-    // Enviar formulario y redirigir a WhatsApp
+    // Enviar formulario, registrar en Firebase y abrir WhatsApp
     formCliente.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -115,9 +123,10 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const actualizacion = {};
             idsMesas.forEach(idMesa => {
-                actualizacion[idMesa] = "pendiente"; // Bloquea en Firebase para este día
+                actualizacion[idMesa] = "pendiente";
             });
 
+            // Esto creará automáticamente el documento de la fecha si no existía
             await setDoc(docRef, actualizacion, { merge: true });
 
             const textoWsp = `NUEVA SOLICITUD DE RESERVA%0A` +
@@ -130,7 +139,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const numeroWhatsApp = "584242191088"; 
 
             modal.style.display = "none";
-            mesasSeleccionadas.forEach(m => m.classList.remove("seleccion-temporal"));
+            mesasSeleccionadas.forEach(m => {
+                m.classList.remove("seleccion-temporal");
+                m.classList.add("pendiente");
+            });
 
             window.open(`https://wa.me/${numeroWhatsApp}?text=${textoWsp}`, "_blank");
 
