@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Extraemos solo el ID de cada mesa seleccionada
         const ids = seleccionadas.map(m => m.id);
         txtMesasElegidas.textContent = ids.join(", ");
         txtFechaElegida.textContent = fechaSeleccionada;
@@ -109,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             await setDoc(docRef, actualizacion, { merge: true });
 
-const textoWsp = `🔔 *NUEVA SOLICITUD DE RESERVA*%0A` +
+            const textoWsp = `🔔 *NUEVA SOLICITUD DE RESERVA*%0A` +
                              `---------------------------%0A` +
                              `📅 Fecha: ${fechaSeleccionada}%0A` +
                              `📍 Mesa(s): ${ids.join(", ")}%0A` +
@@ -125,7 +124,27 @@ const textoWsp = `🔔 *NUEVA SOLICITUD DE RESERVA*%0A` +
                 m.classList.add("pendiente");
             });
 
-            window.open(`https://wa.me/584242191088?text=${textoWsp}`, "_blank");
+            const urlWsp = `https://wa.me/584242191088?text=${textoWsp}`;
+
+            // Solución anti-bloqueo para iPhone: Creamos dinámicamente un botón flotante o de alerta clara para ir a WhatsApp
+            let contenedorWsp = document.getElementById("alerta-whatsapp-ios");
+            if (!contenedorWsp) {
+                contenedorWsp = document.createElement("div");
+                contenedorWsp.id = "alerta-whatsapp-ios";
+                contenedorWsp.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 10000;";
+                document.body.appendChild(contenedorWsp);
+            }
+
+            contenedorWsp.innerHTML = `
+                <div style="background: #1e1e1e; color: #fff; padding: 30px; border-radius: 12px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); font-family: sans-serif;">
+                    <h3 style="color: #22c55e; margin-top: 0; margin-bottom: 15px;">¡Reserva Registrada!</h3>
+                    <p style="font-size: 14px; color: #bbb; margin-bottom: 25px;">Tus mesas han quedado pendientes. Pulsa el botón para enviar los datos por WhatsApp:</p>
+                    <a href="${urlWsp}" target="_blank" id="btn-ir-wsp" style="display: block; width: 100%; background: #25D366; color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; box-sizing: border-box; margin-bottom: 10px;">Enviar a WhatsApp 📲</a>
+                    <button onclick="document.getElementById('alerta-whatsapp-ios').style.display='none'; location.reload();" style="background: transparent; border: none; color: #888; cursor: pointer; font-size: 13px; margin-top: 10px;">Cerrar y reiniciar</button>
+                </div>
+            `;
+            contenedorWsp.style.display = "flex";
+
         } catch (error) {
             console.error("Error:", error);
             alert("Error al procesar reserva.");
