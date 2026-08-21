@@ -83,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const numerosMesas = mesasSeleccionadas.map(m => m.textContent.trim()).join(", ");
-        txtMesasElegidas.textContent = numerosMesas;
+        const numerosMesas = mesasSeleccionadas.map(m => m.innerText.trim()).filter(t => t !== "");
+        txtMesasElegidas.textContent = numerosMesas.join(", ");
         txtFechaElegida.textContent = fechaSeleccionada;
 
         modal.style.display = "flex";
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const mesasSeleccionadas = Array.from(document.querySelectorAll(".mesa.seleccion-temporal"));
         const idsMesas = mesasSeleccionadas.map(m => m.id);
-        const numerosMesas = mesasSeleccionadas.map(m => m.textContent.trim());
+        const numerosMesas = mesasSeleccionadas.map(m => m.innerText.trim()).filter(t => t !== "");
 
         try {
             const docRef = doc(db, "reservas_fechas", fechaSeleccionada);
@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 mesasReservadas: numerosMesas.join(", ")
             };
 
-            // Marcamos las mesas como pendientes y guardamos la info del cliente para cada mesa seleccionada
             idsMesas.forEach(idMesa => {
                 actualizacion[idMesa] = "pendiente";
                 actualizacion[`cliente_${idMesa}`] = datosCliente;
